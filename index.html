@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Full Stack Engineer Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #fdf6e3;
+    --card:     #fff8e7;
+    --card2:    #f5edcf;
+    --border:   #d4b896;
+    --border2:  #b89a72;
+    --ink:      #2b2410;
+    --ink2:     #5a4a30;
+    --ink3:     #9a8060;
+    --accent:   #d4821a;
+    --accent-h: #b86a10;
+    --accent-bg:#fde9c4;
+    --done-bg:  #d8f0e0;
+    --done-bd:  #72b88a;
+    --radius:   10px;
+    --radius-sm:6px;
+    --c1: #3a2fa0;
+    --c2: #1a6645;
+    --c3: #8c4800;
+    --c4: #8c1f1f;
+  }
+
+  body { background: var(--bg); color: var(--ink); font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; line-height: 1.6; }
+
+  .page { max-width: 880px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  /* Header */
+  .header { display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; margin-bottom: 48px; padding-bottom: 24px; border-bottom: 2px solid var(--border2); flex-wrap: wrap; }
+  .header-left { flex: 1; min-width: 240px; }
+  .eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink3); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 10px; }
+  h1 { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: clamp(22px, 4vw, 34px); line-height: 1.2; color: var(--ink); margin-bottom: 8px; }
+  .subtitle { font-size: 14px; color: var(--ink2); max-width: 380px; line-height: 1.6; }
+
+  .progress-card { background: var(--card); border: 2px solid var(--border2); border-radius: var(--radius); padding: 18px 22px; min-width: 210px; flex-shrink: 0; box-shadow: 3px 3px 0 var(--border); }
+  .prog-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .prog-nums { font-family: 'IBM Plex Mono', monospace; font-size: 30px; font-weight: 600; color: var(--ink); line-height: 1; margin-bottom: 12px; }
+  .prog-nums span { font-size: 15px; font-weight: 400; color: var(--ink3); }
+  .prog-track { height: 6px; background: var(--card2); border-radius: 3px; margin-bottom: 7px; overflow: hidden; }
+  .prog-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.4s ease; width: 0%; }
+  .prog-pct { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent); font-weight: 500; }
+
+  /* Phase */
+  .phase { margin-bottom: 44px; }
+  .phase-row { display: grid; grid-template-columns: 90px 1fr auto; align-items: center; gap: 12px; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 2px solid var(--border2); }
+  .phase-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border: 2px solid currentColor; border-radius: var(--radius-sm); white-space: nowrap; font-weight: 600; }
+  .phase-title { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; color: var(--ink); }
+  .phase-count { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink3); white-space: nowrap; }
+
+  /* Week cards */
+  .weeks { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 580px) { .weeks { grid-template-columns: 1fr; } }
+
+  .wcard { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 16px 18px; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; box-shadow: 2px 2px 0 var(--border); }
+  .wcard:hover { border-color: var(--border2); box-shadow: 3px 3px 0 var(--border2); }
+  .wcard.expanded { border-color: var(--accent); border-width: 2px; box-shadow: 3px 3px 0 var(--accent-bg); border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+  .wcard.done { background: var(--done-bg); border-color: var(--done-bd); box-shadow: 2px 2px 0 #b8dcca; }
+
+  .wcard-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  .wcard-meta { flex: 1; }
+  .wnum { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; font-weight: 500; }
+  .wtitle { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; line-height: 1.3; }
+  .wdesc { font-size: 13px; color: var(--ink2); line-height: 1.45; }
+
+  .chkbtn { width: 22px; height: 22px; flex-shrink: 0; border: 2px solid var(--border2); border-radius: 5px; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; margin-top: 1px; }
+  .chkbtn:hover { border-color: var(--accent); }
+  .chkbtn.checked { background: var(--accent); border-color: var(--accent); }
+  .chkicon { display: none; }
+  .chkbtn.checked .chkicon { display: block; }
+
+  /* Detail panel */
+  .detail { background: var(--card2); border: 2px solid var(--accent); border-top: none; border-radius: 0 0 var(--radius) var(--radius); padding: 20px 22px; grid-column: 1 / -1; }
+  .detail-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+  .detail-ttl { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--ink); }
+  .close-btn { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2); cursor: pointer; background: none; border: 1.5px solid var(--border2); border-radius: var(--radius-sm); padding: 3px 10px; transition: all 0.15s; }
+  .close-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .detail-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 16px; }
+  @media (max-width: 580px) { .detail-cols { grid-template-columns: 1fr; } }
+  .detail-block-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; font-weight: 500; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tag { font-size: 12px; padding: 3px 10px; border: 1.5px solid var(--border); border-radius: 20px; color: var(--ink2); background: var(--card); font-family: 'IBM Plex Mono', monospace; }
+  .tag.tool { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+  .tag.project { border-radius: var(--radius-sm); border-color: var(--border2); color: var(--ink); font-size: 13px; padding: 6px 12px; width: 100%; font-family: 'IBM Plex Sans', sans-serif; background: var(--card); }
+
+  /* Resources */
+  .res-section { margin-top: 16px; border-top: 1.5px solid var(--border); padding-top: 16px; }
+  .res-list { display: flex; flex-direction: column; gap: 7px; }
+
+  .res-item { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; display: flex; align-items: center; gap: 12px; transition: border-color 0.15s; }
+  .res-item:hover { border-color: var(--border2); }
+  .res-item.res-done { background: var(--done-bg); border-color: var(--done-bd); }
+  .res-item.res-done .res-item-title { text-decoration: line-through; color: var(--ink3); }
+
+  .res-chk { width: 18px; height: 18px; flex-shrink: 0; border: 2px solid var(--border2); border-radius: 4px; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .res-chk:hover { border-color: var(--accent); }
+  .res-chk.checked { background: var(--accent); border-color: var(--accent); }
+  .res-chkicon { display: none; }
+  .res-chk.checked .res-chkicon { display: block; }
+
+  .res-item-left { flex: 1; min-width: 0; }
+  .res-item-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+  .res-item-desc { font-size: 12px; color: var(--ink2); line-height: 1.45; }
+  .res-item-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+  .rtype { font-family: 'IBM Plex Mono', monospace; font-size: 10px; padding: 2px 8px; border: 1.5px solid var(--border); border-radius: 20px; color: var(--ink3); white-space: nowrap; background: var(--bg); }
+  .rlink { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent); text-decoration: none; white-space: nowrap; font-weight: 500; }
+  .rlink:hover { text-decoration: underline; }
+
+  /* All resources */
+  .all-res { margin-top: 52px; }
+  .all-res-head { display: flex; align-items: center; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 2px solid var(--border2); }
+  .all-res-title { font-family: 'IBM Plex Mono', monospace; font-size: 16px; font-weight: 600; color: var(--ink); }
+
+  .filter-row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .fbtn { font-family: 'IBM Plex Mono', monospace; font-size: 12px; padding: 5px 13px; border: 1.5px solid var(--border); border-radius: 20px; background: var(--card); color: var(--ink2); cursor: pointer; transition: all 0.15s; font-weight: 500; }
+  .fbtn:hover { border-color: var(--accent); color: var(--accent); }
+  .fbtn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .week-filter-row { margin-bottom: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+
+  /* Save bar */
+  .save-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 32px; padding: 14px 18px; background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius); box-shadow: 2px 2px 0 var(--border); }
+  .save-bar-label { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink3); text-transform: uppercase; letter-spacing: 0.1em; flex: 1; min-width: 100px; }
+  .save-btn { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; padding: 7px 16px; cursor: pointer; border: 2px solid var(--accent); border-radius: var(--radius-sm); background: var(--accent); color: #fff; transition: all 0.15s; white-space: nowrap; }
+  .save-btn:hover { background: var(--accent-h); border-color: var(--accent-h); }
+  .save-btn.secondary { background: transparent; color: var(--accent); }
+  .save-btn.secondary:hover { background: var(--accent-bg); }
+  .save-bar-note { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink3); }
+
+  .toast { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(60px); background: var(--ink); color: var(--bg); font-family: 'IBM Plex Mono', monospace; font-size: 12px; padding: 9px 18px; border-radius: var(--radius-sm); z-index: 100; transition: transform 0.25s ease; pointer-events: none; }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  footer { margin-top: 60px; padding-top: 20px; border-top: 1.5px solid var(--border); }
+  footer p { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink3); }
+
+  .ph1 { color: var(--c1); border-color: var(--c1); }
+  .ph2 { color: var(--c2); border-color: var(--c2); }
+  .ph3 { color: var(--c3); border-color: var(--c3); }
+  .ph4 { color: var(--c4); border-color: var(--c4); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="header">
+    <div class="header-left">
+      <p class="eyebrow">12-Week Learning Path</p>
+      <h1>AI Full Stack<br>Engineer Roadmap</h1>
+      <p class="subtitle">From LLM basics to shipping production AI agents. Built for AIML undergrads with Python + React experience.</p>
+    </div>
+    <div class="progress-card">
+      <p class="prog-label">Overall progress</p>
+      <div class="prog-nums"><span id="done-count">0</span> <span>/ 12 weeks</span></div>
+      <div class="prog-track"><div class="prog-fill" id="overall-bar"></div></div>
+      <p class="prog-pct" id="pct-text">0% complete</p>
+    </div>
+  </header>
+
+  <div id="roadmap"></div>
+
+  <div class="all-res">
+    <div class="all-res-head"><h2 class="all-res-title">All free resources</h2></div>
+    <div class="week-filter-row" id="week-filters">
+      <button class="fbtn active" onclick="filterResources('all', this)">All</button>
+    </div>
+    <div class="filter-row" style="margin-bottom:14px">
+      <button class="fbtn active" onclick="filterType('all', this)">All types</button>
+      <button class="fbtn" onclick="filterType('video', this)">Video</button>
+      <button class="fbtn" onclick="filterType('course', this)">Course</button>
+      <button class="fbtn" onclick="filterType('docs', this)">Docs</button>
+      <button class="fbtn" onclick="filterType('repo', this)">Repo</button>
+      <button class="fbtn" onclick="filterType('article', this)">Article</button>
+    </div>
+    <div class="res-list" id="all-resources"></div>
+  </div>
+
+  <div class="save-bar">
+    <span class="save-bar-label">Progress file</span>
+    <button class="save-btn" onclick="exportProgress()">↓ Save JSON</button>
+    <button class="save-btn secondary" onclick="document.getElementById('import-input').click()">↑ Load JSON</button>
+    <input type="file" id="import-input" accept=".json" style="display:none" onchange="importProgress(event)">
+    <span class="save-bar-note">Saves weeks + resources completed</span>
+  </div>
+
+  <footer><p>Progress auto-saved to browser — use Save JSON for backup — ship the capstone</p></footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const phases = [
+  { id:1, cls:'ph1', label:"Phase 1", title:"AI Foundations & LLM Mastery",    weeks:[1,2,3]    },
+  { id:2, cls:'ph2', label:"Phase 2", title:"AI Agents & Agentic Systems",      weeks:[4,5,6]    },
+  { id:3, cls:'ph3', label:"Phase 3", title:"Full Stack AI Engineering",         weeks:[7,8,9]    },
+  { id:4, cls:'ph4', label:"Phase 4", title:"Portfolio & Job Readiness",         weeks:[10,11,12] },
+];
+
+const weeks = [
+  { week:1, phase:1, title:"LLM Deep Dive", desc:"Understand how LLMs really work under the hood",
+    topics:["Transformer architecture","Tokenization & embeddings","Temperature, top-p, context windows","System prompts & prompt engineering"],
+    tools:["OpenAI API","Anthropic Claude API","Tiktoken","LangChain basics"],
+    project:"Build a smart prompt tester — compare outputs across models and settings",
+    resources:[
+      {id:"r1-1",title:"Andrej Karpathy — Let's build GPT from scratch",type:"video",desc:"3-hour deep dive building a GPT in pure Python. Best intro to transformers that exists.",url:"https://www.youtube.com/watch?v=kCc8FmEb1nY"},
+      {id:"r1-2",title:"3Blue1Brown — Neural networks series",type:"video",desc:"Visual intuition for how neural networks and transformers work.",url:"https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi"},
+      {id:"r1-3",title:"Anthropic Claude API docs",type:"docs",desc:"Official docs for Claude tool use, system prompts, and API reference.",url:"https://docs.anthropic.com"},
+      {id:"r1-4",title:"OpenAI Cookbook",type:"repo",desc:"Practical notebooks: prompt engineering, embeddings, function calling.",url:"https://github.com/openai/openai-cookbook"},
+      {id:"r1-5",title:"Attention is All You Need (paper)",type:"article",desc:"The original transformer paper — worth skimming at minimum.",url:"https://arxiv.org/abs/1706.03762"},
+    ]},
+  { week:2, phase:1, title:"RAG & Vector Databases", desc:"Give LLMs long-term memory with retrieval",
+    topics:["Embeddings & semantic search","Chunking strategies","Vector stores (Pinecone, Chroma)","Retrieval-Augmented Generation pipeline"],
+    tools:["LangChain","Chroma / Pinecone","OpenAI Embeddings","FAISS"],
+    project:"Build a RAG chatbot over your own PDF documents",
+    resources:[
+      {id:"r2-1",title:"DeepLearning.AI — LangChain Chat with Your Data",type:"course",desc:"Short course by Harrison Chase. Covers RAG, chunking, retrieval end-to-end.",url:"https://www.deeplearning.ai/short-courses/langchain-chat-with-your-data/"},
+      {id:"r2-2",title:"LangChain RAG documentation",type:"docs",desc:"Official guide to building RAG pipelines with LCEL and retrievers.",url:"https://python.langchain.com/docs/tutorials/rag/"},
+      {id:"r2-3",title:"Chroma getting started guide",type:"docs",desc:"Free local vector database — easiest to get running for RAG projects.",url:"https://docs.trychroma.com/getting-started"},
+      {id:"r2-4",title:"Pinecone learning center",type:"course",desc:"Free courses on vector search fundamentals and building RAG apps.",url:"https://www.pinecone.io/learn/"},
+      {id:"r2-5",title:"Chunking strategies for RAG (Pinecone blog)",type:"article",desc:"Practical guide to fixed-size, semantic, and recursive chunking.",url:"https://www.pinecone.io/learn/chunking-strategies/"},
+    ]},
+  { week:3, phase:1, title:"Fine-tuning & Evaluation", desc:"Customise models and measure their quality",
+    topics:["When to fine-tune vs prompt","LoRA / PEFT concepts","Dataset preparation","LLM evaluation metrics (BLEU, ROUGE)"],
+    tools:["Hugging Face Transformers","PEFT library","Weights & Biases","LangSmith"],
+    project:"Fine-tune a small model on a custom Q&A dataset and evaluate it",
+    resources:[
+      {id:"r3-1",title:"Hugging Face NLP Course",type:"course",desc:"Complete course covering transformers, fine-tuning with PEFT/LoRA, and deployment.",url:"https://huggingface.co/learn/nlp-course/chapter1/1"},
+      {id:"r3-2",title:"DeepLearning.AI — Finetuning LLMs",type:"course",desc:"Short course on when and how to fine-tune, data prep, and LoRA.",url:"https://www.deeplearning.ai/short-courses/finetuning-large-language-models/"},
+      {id:"r3-3",title:"Weights & Biases free courses",type:"course",desc:"LLM evaluation, MLOps, and experiment tracking — all free.",url:"https://www.wandb.courses/"},
+      {id:"r3-4",title:"LoRA paper (Hu et al. 2021)",type:"article",desc:"The foundational paper on Low-Rank Adaptation — readable even for beginners.",url:"https://arxiv.org/abs/2106.09685"},
+      {id:"r3-5",title:"LangSmith evaluation guide",type:"docs",desc:"Free tier for tracing and evaluating LLM outputs in your projects.",url:"https://docs.smith.langchain.com/"},
+    ]},
+  { week:4, phase:2, title:"AI Agent Fundamentals", desc:"Understand how agents reason, plan, and act",
+    topics:["ReAct pattern (Reason + Act)","Tool use & function calling","Agent memory types","Single vs multi-agent systems"],
+    tools:["LangChain Agents","OpenAI function calling","Claude tool use API"],
+    project:"Build a research agent that searches the web and summarises findings",
+    resources:[
+      {id:"r4-1",title:"DeepLearning.AI — AI Agents in LangGraph",type:"course",desc:"Official short course on building agents with LangGraph — directly relevant.",url:"https://www.deeplearning.ai/short-courses/ai-agents-in-langgraph/"},
+      {id:"r4-2",title:"ReAct: Synergizing Reasoning and Acting (paper)",type:"article",desc:"The paper that defined the ReAct pattern used in most agents today.",url:"https://arxiv.org/abs/2210.03629"},
+      {id:"r4-3",title:"Anthropic tool use documentation",type:"docs",desc:"How to implement function calling with Claude API — includes examples.",url:"https://docs.anthropic.com/en/docs/build-with-claude/tool-use"},
+      {id:"r4-4",title:"LangChain agents conceptual guide",type:"docs",desc:"Covers agent types, memory, and tool binding in LangChain.",url:"https://python.langchain.com/docs/concepts/agents/"},
+      {id:"r4-5",title:"Lilian Weng — LLM-powered autonomous agents",type:"article",desc:"Deep technical overview of agent memory, planning, and tool use patterns.",url:"https://lilianweng.github.io/posts/2023-06-23-agent/"},
+    ]},
+  { week:5, phase:2, title:"Multi-Agent Orchestration", desc:"Coordinate multiple specialised AI agents",
+    topics:["Supervisor/worker patterns","Agent communication protocols","State management in pipelines","Retry and fallback logic"],
+    tools:["LangGraph","CrewAI","AutoGen","Redis for state"],
+    project:"Build a content pipeline: researcher + writer + editor agents",
+    resources:[
+      {id:"r5-1",title:"LangGraph documentation & tutorials",type:"docs",desc:"Official docs for building stateful multi-agent workflows with graphs.",url:"https://langchain-ai.github.io/langgraph/"},
+      {id:"r5-2",title:"CrewAI documentation",type:"docs",desc:"Free framework for role-based multi-agent crews — great for pipelines.",url:"https://docs.crewai.com/"},
+      {id:"r5-3",title:"DeepLearning.AI — Multi AI Agent Systems",type:"course",desc:"Short course by CrewAI covering agent roles and task delegation.",url:"https://www.deeplearning.ai/short-courses/multi-ai-agent-systems-with-crewai/"},
+      {id:"r5-4",title:"AutoGen documentation (Microsoft)",type:"docs",desc:"Open-source framework for conversational multi-agent systems.",url:"https://microsoft.github.io/autogen/"},
+      {id:"r5-5",title:"LangGraph how-to guides (GitHub)",type:"repo",desc:"Practical notebooks on supervisor patterns, parallel agents, and more.",url:"https://github.com/langchain-ai/langgraph/tree/main/examples"},
+    ]},
+  { week:6, phase:2, title:"Real-World Agent Patterns", desc:"Production patterns used in actual AI products",
+    topics:["Structured output (JSON mode)","Error handling & guardrails","Human-in-the-loop","MCP (Model Context Protocol)"],
+    tools:["Instructor library","Guardrails AI","LangGraph interrupt","Anthropic MCP"],
+    project:"Build an agent with human approval checkpoints and structured outputs",
+    resources:[
+      {id:"r6-1",title:"Instructor library documentation",type:"docs",desc:"Best library for structured outputs (Pydantic) from any LLM — free.",url:"https://python.useinstructor.com/"},
+      {id:"r6-2",title:"Guardrails AI documentation",type:"docs",desc:"Add validation, retry logic, and safety checks to LLM outputs.",url:"https://www.guardrailsai.com/docs"},
+      {id:"r6-3",title:"Anthropic MCP specification",type:"docs",desc:"Model Context Protocol spec — the new standard for connecting agents to tools.",url:"https://modelcontextprotocol.io/introduction"},
+      {id:"r6-4",title:"LangGraph human-in-the-loop guide",type:"docs",desc:"How to add breakpoints and approval steps to your agent graph.",url:"https://langchain-ai.github.io/langgraph/concepts/human_in_the_loop/"},
+      {id:"r6-5",title:"Anthropic's guide to building effective agents",type:"article",desc:"Anthropic's own thinking on building reliable agents — essential reading.",url:"https://www.anthropic.com/research/building-effective-agents"},
+    ]},
+  { week:7, phase:3, title:"Backend for AI Apps", desc:"Node.js/Python backends powering AI features",
+    topics:["Streaming responses (SSE)","Async job queues for long tasks","Auth and API key management","Rate limiting & cost control"],
+    tools:["Node.js / FastAPI","BullMQ / Celery","Redis","Supabase"],
+    project:"Build a streaming chat API with token usage tracking and user auth",
+    resources:[
+      {id:"r7-1",title:"FastAPI official tutorial",type:"docs",desc:"Complete tutorial from basics to async endpoints and background tasks.",url:"https://fastapi.tiangolo.com/tutorial/"},
+      {id:"r7-2",title:"Node.js streams documentation",type:"docs",desc:"Official guide to streaming — essential for Server-Sent Events.",url:"https://nodejs.org/en/learn/modules/backpressuring-in-streams"},
+      {id:"r7-3",title:"BullMQ documentation",type:"docs",desc:"Job queue for Node.js — free, Redis-backed, great for async AI tasks.",url:"https://docs.bullmq.io/"},
+      {id:"r7-4",title:"Supabase documentation",type:"docs",desc:"Free Postgres + auth + realtime — perfect backend for AI apps.",url:"https://supabase.com/docs"},
+      {id:"r7-5",title:"Fireship — SSE crash course (YouTube)",type:"video",desc:"10-minute intro to Server-Sent Events for streaming LLM responses.",url:"https://www.youtube.com/watch?v=4HlNv1qpZFY"},
+    ]},
+  { week:8, phase:3, title:"AI-Powered React Frontend", desc:"Build the UI layer for AI products",
+    topics:["Streaming chat UI with React","Skeleton states & loading UX","Markdown rendering from LLM","Voice input integration"],
+    tools:["React","Vercel AI SDK","shadcn/ui","Web Speech API"],
+    project:"Build a full ChatGPT-like UI with streaming, history, and code highlighting",
+    resources:[
+      {id:"r8-1",title:"Vercel AI SDK documentation",type:"docs",desc:"Best library for streaming chat UIs in React/Next.js — free and open source.",url:"https://sdk.vercel.ai/docs"},
+      {id:"r8-2",title:"shadcn/ui component library",type:"docs",desc:"Free React component library used by most modern AI apps.",url:"https://ui.shadcn.com/"},
+      {id:"r8-3",title:"Next.js App Router tutorial",type:"course",desc:"Official Next.js tutorial covering app router, server components, API routes.",url:"https://nextjs.org/learn"},
+      {id:"r8-4",title:"Vercel AI SDK chatbot template (GitHub)",type:"repo",desc:"Open source Next.js chat template with streaming, history, and auth.",url:"https://github.com/vercel/ai-chatbot"},
+      {id:"r8-5",title:"React docs — modern patterns",type:"docs",desc:"Modern React patterns for managing streaming state in AI apps.",url:"https://react.dev/learn"},
+    ]},
+  { week:9, phase:3, title:"Deployment & Observability", desc:"Ship AI apps and monitor them in production",
+    topics:["Docker + cloud deployment","LLM observability & tracing","Prompt versioning","A/B testing prompts"],
+    tools:["Docker / Railway / Render","LangSmith / Helicone","PostHog","GitHub Actions"],
+    project:"Deploy your Week 8 app with full LangSmith tracing and a CI/CD pipeline",
+    resources:[
+      {id:"r9-1",title:"Docker getting started (official)",type:"docs",desc:"Free official Docker tutorial — containerise your AI app in a day.",url:"https://docs.docker.com/get-started/"},
+      {id:"r9-2",title:"Railway free tier docs",type:"docs",desc:"Easiest way to deploy Docker apps for free with a hobby plan.",url:"https://docs.railway.app/"},
+      {id:"r9-3",title:"LangSmith quickstart",type:"docs",desc:"Trace every LLM call, evaluate outputs, and debug agents for free.",url:"https://docs.smith.langchain.com/tutorials/Developers/quick_start"},
+      {id:"r9-4",title:"Helicone free tier",type:"docs",desc:"LLM observability — log requests, track costs, monitor latency.",url:"https://docs.helicone.ai/getting-started/quick-start"},
+      {id:"r9-5",title:"GitHub Actions documentation",type:"docs",desc:"Set up CI/CD pipelines to auto-deploy your AI app on every push.",url:"https://docs.github.com/en/actions"},
+    ]},
+  { week:10, phase:4, title:"Capstone Project — Week 1", desc:"Build a production-quality AI agent app",
+    topics:["Define a real problem to solve","Full stack architecture planning","Backend + agent pipeline","Auth, payments (optional)"],
+    tools:["Full stack of your choice","Stripe (optional)","Supabase","Vercel"],
+    project:"Start your capstone: an AI-powered SaaS tool or agent product",
+    resources:[
+      {id:"r10-1",title:"roadmap.sh — AI engineer roadmap",type:"article",desc:"Community-maintained roadmap with skill gaps and interview topics for AI roles.",url:"https://roadmap.sh/ai-engineer"},
+      {id:"r10-2",title:"System Design Primer (GitHub)",type:"repo",desc:"System design patterns including ML pipelines and LLM serving architectures.",url:"https://github.com/donnemartin/system-design-primer"},
+      {id:"r10-3",title:"Neetcode.io",type:"course",desc:"DSA for coding interviews — do the top 75 list minimum.",url:"https://neetcode.io/"},
+      {id:"r10-4",title:"Excalidraw",type:"docs",desc:"Free whiteboard for system design interviews — practice drawing architectures.",url:"https://excalidraw.com/"},
+      {id:"r10-5",title:"How to write a great README (GitHub guide)",type:"article",desc:"Your README is the first thing recruiters see on your projects.",url:"https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes"},
+    ]},
+  { week:11, phase:4, title:"Capstone Project — Week 2", desc:"Polish, test, and deploy your capstone",
+    topics:["End-to-end testing","UX polish and edge cases","README and documentation","Deploy to production"],
+    tools:["Playwright / Cypress","Vercel / Render","GitHub Pages","Loom"],
+    project:"Launch capstone publicly with a live demo and GitHub repo",
+    resources:[
+      {id:"r11-1",title:"Playwright documentation",type:"docs",desc:"Best end-to-end testing framework for web apps — free and open source.",url:"https://playwright.dev/docs/intro"},
+      {id:"r11-2",title:"Vercel deployment guide",type:"docs",desc:"Deploy Next.js and React apps for free with Vercel's hobby tier.",url:"https://vercel.com/docs"},
+      {id:"r11-3",title:"How to write good commit messages",type:"article",desc:"Clean git history matters for job applications and code reviews.",url:"https://cbea.ms/git-commit/"},
+      {id:"r11-4",title:"Product Hunt launch guide",type:"article",desc:"How to launch your AI project publicly and get early users.",url:"https://blog.producthunt.com/how-to-launch-on-product-hunt-7c1843e06399"},
+      {id:"r11-5",title:"Loom (free screen recording)",type:"docs",desc:"Record a demo video of your project for your portfolio.",url:"https://www.loom.com/"},
+    ]},
+  { week:12, phase:4, title:"Job Prep & Portfolio", desc:"Land your first AI engineering role",
+    topics:["Portfolio site with 3 projects","LinkedIn + GitHub optimisation","AI engineering interview prep","System design for AI systems"],
+    tools:["GitHub Pages / Vercel","LinkedIn","Excalidraw","Notion"],
+    project:"Ship portfolio site; complete 3 mock AI system design interviews",
+    resources:[
+      {id:"r12-1",title:"Grokking System Design — AI edition",type:"repo",desc:"System design patterns including ML pipelines and LLM serving architectures.",url:"https://github.com/donnemartin/system-design-primer"},
+      {id:"r12-2",title:"Neetcode.io — Blind 75",type:"course",desc:"The standard interview DSA prep list — complete all 75.",url:"https://neetcode.io/practice"},
+      {id:"r12-3",title:"GitHub Pages documentation",type:"docs",desc:"Host your portfolio for free on GitHub Pages.",url:"https://pages.github.com/"},
+      {id:"r12-4",title:"Levels.fyi — AI engineer salaries",type:"article",desc:"Research compensation ranges for AI engineer roles in India and abroad.",url:"https://www.levels.fyi/"},
+      {id:"r12-5",title:"How to write a great engineering resume",type:"article",desc:"Resume tips specific to software and AI engineering roles.",url:"https://www.techinterviewhandbook.org/resume/"},
+    ]},
+];
+
+let progress    = JSON.parse(localStorage.getItem('ai-roadmap-progress')   || '{}');
+let resProgress = JSON.parse(localStorage.getItem('ai-roadmap-resources')  || '{}');
+let expandedWeek = null;
+let activeTypeFilter = 'all';
+let activeWeekFilter = 'all';
+
+function save() {
+  localStorage.setItem('ai-roadmap-progress',  JSON.stringify(progress));
+  localStorage.setItem('ai-roadmap-resources',  JSON.stringify(resProgress));
+}
+
+function updateOverall() {
+  const done = Object.values(progress).filter(Boolean).length;
+  document.getElementById('done-count').textContent = done;
+  document.getElementById('overall-bar').style.width = Math.round(done/12*100) + '%';
+  document.getElementById('pct-text').textContent = Math.round(done/12*100) + '% complete';
+  phases.forEach(p => {
+    const el = document.getElementById('phase-prog-' + p.id);
+    if (!el) return;
+    el.textContent = p.weeks.filter(w => progress[w]).length + ' / 3 done';
+  });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+function toggleDone(wn, e) {
+  e.stopPropagation();
+  progress[wn] = !progress[wn]; save(); updateOverall();
+  const card = document.getElementById('wcard-' + wn);
+  const btn  = document.getElementById('chk-'   + wn);
+  if (progress[wn]) { card.classList.add('done'); btn.classList.add('checked'); showToast('Week ' + wn + ' complete ✓'); }
+  else              { card.classList.remove('done'); btn.classList.remove('checked'); showToast('Week ' + wn + ' unmarked'); }
+}
+
+function toggleResDone(rid, e) {
+  e.stopPropagation();
+  resProgress[rid] = !resProgress[rid]; save();
+  document.querySelectorAll('[data-rid="' + rid + '"]').forEach(el => {
+    const chk = el.querySelector('.res-chk');
+    if (resProgress[rid]) { el.classList.add('res-done'); chk && chk.classList.add('checked'); }
+    else                  { el.classList.remove('res-done'); chk && chk.classList.remove('checked'); }
+  });
+  showToast(resProgress[rid] ? 'Resource marked done ✓' : 'Resource unmarked');
+}
+
+function toggleExpand(wn) {
+  if (expandedWeek === wn) { collapseDetail(); return; }
+  if (expandedWeek !== null) {
+    document.getElementById('wcard-'  + expandedWeek)?.classList.remove('expanded');
+    document.getElementById('detail-' + expandedWeek)?.remove();
+  }
+  expandedWeek = wn;
+  document.getElementById('wcard-' + wn).classList.add('expanded');
+  renderDetail(wn);
+}
+
+function collapseDetail() {
+  if (expandedWeek === null) return;
+  document.getElementById('wcard-'  + expandedWeek)?.classList.remove('expanded');
+  document.getElementById('detail-' + expandedWeek)?.remove();
+  expandedWeek = null;
+}
+
+function renderDetail(wn) {
+  const w    = weeks.find(x => x.week === wn);
+  const card = document.getElementById('wcard-' + wn);
+  const detail = document.createElement('div');
+  detail.id = 'detail-' + wn; detail.className = 'detail'; detail.style.gridColumn = '1 / -1';
+  detail.innerHTML = `
+    <div class="detail-head">
+      <span class="detail-ttl">Wk ${wn}: ${w.title}</span>
+      <button class="close-btn" onclick="collapseDetail()">close ✕</button>
+    </div>
+    <div class="detail-cols">
+      <div>
+        <div class="detail-block-label">What you'll learn</div>
+        <div class="tags">${w.topics.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      </div>
+      <div>
+        <div class="detail-block-label">Tools & libraries</div>
+        <div class="tags">${w.tools.map(t=>`<span class="tag tool">${t}</span>`).join('')}</div>
+      </div>
+    </div>
+    <div>
+      <div class="detail-block-label">Weekly project</div>
+      <div class="tags"><span class="tag project">⬡ ${w.project}</span></div>
+    </div>
+    <div class="res-section">
+      <div class="detail-block-label" style="margin-bottom:10px">Resources</div>
+      <div class="res-list">${w.resources.map(r=>resItemHTML(r)).join('')}</div>
+    </div>`;
+  const grid  = card.closest('.weeks');
+  const cards = Array.from(grid.children).filter(c => c.classList.contains('wcard'));
+  const idx   = cards.indexOf(card);
+  const next  = cards[idx + 1];
+  if (idx % 2 === 1 || idx === cards.length - 1) { card.after(detail); }
+  else { (next || card).after(detail); }
+  detail.scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
+function resItemHTML(r) {
+  const done = !!resProgress[r.id];
+  return `<div class="res-item${done?' res-done':''}" data-rid="${r.id}">
+    <button class="res-chk${done?' checked':''}" onclick="toggleResDone('${r.id}',event)" title="Mark done">
+      <svg class="res-chkicon" width="10" height="10" viewBox="0 0 12 12" fill="none">
+        <path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="res-item-left">
+      <div class="res-item-title">${r.title}</div>
+      <div class="res-item-desc">${r.desc}</div>
+    </div>
+    <div class="res-item-right">
+      <span class="rtype">${r.type}</span>
+      <a class="rlink" href="${r.url}" target="_blank">Visit →</a>
+    </div>
+  </div>`;
+}
+
+function buildRoadmap() {
+  const container = document.getElementById('roadmap');
+  phases.forEach(p => {
+    const sec = document.createElement('div');
+    sec.className = 'phase';
+    sec.innerHTML = `
+      <div class="phase-row">
+        <span class="phase-num ${p.cls}">${p.label}</span>
+        <span class="phase-title">${p.title}</span>
+        <span class="phase-count" id="phase-prog-${p.id}">0 / 3 done</span>
+      </div>
+      <div class="weeks" id="grid-${p.id}"></div>`;
+    container.appendChild(sec);
+    const grid = sec.querySelector('#grid-' + p.id);
+    p.weeks.forEach(wn => {
+      const w = weeks.find(x => x.week === wn);
+      const card = document.createElement('div');
+      card.className = 'wcard' + (progress[wn] ? ' done' : '');
+      card.id = 'wcard-' + wn;
+      card.onclick = () => toggleExpand(wn);
+      card.innerHTML = `
+        <div class="wcard-top">
+          <div class="wcard-meta">
+            <div class="wnum">Week ${wn}</div>
+            <div class="wtitle">${w.title}</div>
+            <div class="wdesc">${w.desc}</div>
+          </div>
+          <button class="chkbtn${progress[wn]?' checked':''}" id="chk-${wn}" title="Mark week complete" onclick="toggleDone(${wn},event)">
+            <svg class="chkicon" width="11" height="11" viewBox="0 0 12 12" fill="none">
+              <path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>`;
+      grid.appendChild(card);
+    });
+  });
+}
+
+function buildWeekFilters() {
+  const row = document.getElementById('week-filters');
+  weeks.forEach(w => {
+    const btn = document.createElement('button');
+    btn.className = 'fbtn'; btn.textContent = 'Wk ' + w.week;
+    btn.onclick = function() { filterResources(String(w.week), this); };
+    row.appendChild(btn);
+  });
+}
+
+function filterResources(week, btn) {
+  document.querySelectorAll('#week-filters .fbtn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active'); activeWeekFilter = week; renderAllResources();
+}
+
+function filterType(type, btn) {
+  document.querySelectorAll('.filter-row .fbtn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active'); activeTypeFilter = type; renderAllResources();
+}
+
+function renderAllResources() {
+  const container = document.getElementById('all-resources');
+  container.innerHTML = '';
+  weeks.forEach(w => {
+    if (activeWeekFilter !== 'all' && String(w.week) !== activeWeekFilter) return;
+    w.resources.forEach(r => {
+      if (activeTypeFilter !== 'all' && r.type !== activeTypeFilter) return;
+      container.insertAdjacentHTML('beforeend', resItemHTML(r));
+    });
+  });
+  if (!container.children.length)
+    container.innerHTML = '<p style="font-size:13px;color:var(--ink3);padding:12px 0">No resources match this filter.</p>';
+}
+
+function exportProgress() {
+  const cw = Object.keys(progress).filter(k=>progress[k]).map(Number).sort((a,b)=>a-b);
+  const cr = Object.keys(resProgress).filter(k=>resProgress[k]);
+  const data = { exported: new Date().toISOString(), completed_weeks: cw, completed_resources: cr,
+    total_weeks_done: cw.length, total_resources_done: cr.length,
+    progress_raw: progress, resources_raw: resProgress };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type:'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'ai-roadmap-progress.json'; a.click();
+  URL.revokeObjectURL(url); showToast('Progress saved to JSON ✓');
+}
+
+function importProgress(e) {
+  const file = e.target.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    try {
+      const data = JSON.parse(ev.target.result);
+      const rawW = data.progress_raw  || data;
+      const rawR = data.resources_raw || {};
+      if (!Object.keys(rawW).every(k => !isNaN(Number(k)) && typeof rawW[k] === 'boolean')) throw 0;
+      progress = {}; Object.keys(rawW).forEach(k => { progress[k] = rawW[k]; });
+      resProgress = {}; Object.keys(rawR).forEach(k => { resProgress[k] = rawR[k]; });
+      save();
+      document.querySelectorAll('.wcard').forEach(card => {
+        const wn = card.id.replace('wcard-','');
+        const btn = document.getElementById('chk-'+wn);
+        if (progress[wn]) { card.classList.add('done'); btn?.classList.add('checked'); }
+        else              { card.classList.remove('done'); btn?.classList.remove('checked'); }
+      });
+      updateOverall(); renderAllResources(); showToast('Progress loaded ✓');
+    } catch { showToast('Invalid JSON file'); }
+    e.target.value = '';
+  };
+  reader.readAsText(file);
+}
+
+buildRoadmap(); buildWeekFilters(); renderAllResources(); updateOverall();
+</script>
+</body>
+</html>
