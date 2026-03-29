@@ -425,18 +425,28 @@ function updateSyncUI() {
   if (!configured) setSyncStatus('☁ Cloud sync: not configured');
 }
 
+async function findExistingGist(token) {
+  let page = 1;
+  while (true) {
+    const res = await fetch(`https://api.github.com/gists?per_page=100&page=${page}`, {
+      headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json' }
+    });
+    if (!res.ok) throw new Error('Token invalid or missing gist scope');
+    const gists = await res.json();
+    if (!gists.length) return null;
+    const found = gists.find(g => g.files && g.files[GIST_FILE]);
+    if (found) return found;
+    if (gists.length < 100) return null;
+    page++;
+  }
+}
+
 async function connectGist() {
   const token = document.getElementById('token-input').value.trim();
   if (!token) { showToast('Paste your GitHub token first'); return; }
   setSyncStatus('☁ Connecting…');
   try {
-    // Check if we already have a gist for this roadmap
-    const listRes = await fetch('https://api.github.com/gists', {
-      headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json' }
-    });
-    if (!listRes.ok) throw new Error('Token invalid or no gist scope');
-    const gists = await listRes.json();
-    const existing = gists.find(g => g.files && g.files[GIST_FILE]);
+    const existing = await findExistingGist(token);
 
     let gistId;
     if (existing) {
@@ -490,11 +500,20 @@ async function pullFromGist(token, gistId) {
     const res = await fetch(`https://api.github.com/gists/${gistId}`, {
       headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json' }
     });
-    if (!res.ok) throw new Error('Fetch failed');
+    if (!res.ok) throw new Error('Fetch failed (' + res.status + ')');
     const gist = await res.json();
-    const raw = gist.files[GIST_FILE]?.content;
-    if (!raw) throw new Error('File not found in Gist');
-    const data = JSON.parse(raw);
+    const fileObj = gist.files[GIST_FILE];
+    if (!fileObj) throw new Error('File not found in Gist');
+    // GitHub truncates large files — always fetch via raw_url to get full content
+    let rawContent;
+    if (fileObj.truncated || !fileObj.content) {
+      const rawRes = await fetch(fileObj.raw_url);
+      if (!rawRes.ok) throw new Error('Could not fetch raw content');
+      rawContent = await rawRes.text();
+    } else {
+      rawContent = fileObj.content;
+    }
+    const data = JSON.parse(rawContent);
     applyProgressData(data);
     setSyncStatus('☁ Synced — ' + new Date().toLocaleTimeString(), 'ok');
     showToast('Progress loaded from Gist ✓');
@@ -552,8 +571,11 @@ function disconnectGist() {
 function applyProgressData(data) {
   const rawW = data.progress_raw  || data;
   const rawR = data.resources_raw || {};
-  progress = {}; Object.keys(rawW).forEach(k => { progress[k] = rawW[k]; });
-  resProgress = {}; Object.keys(rawR).forEach(k => { resProgress[k] = rawR[k]; });
+  // Week keys must be strings (localStorage stores them as strings "1","2"…)
+  progress = {};
+  Object.keys(rawW).forEach(k => { progress[String(k)] = !!rawW[k]; });
+  resProgress = {};
+  Object.keys(rawR).forEach(k => { resProgress[String(k)] = !!rawR[k]; });
   // Persist locally too
   localStorage.setItem('ai-roadmap-progress',  JSON.stringify(progress));
   localStorage.setItem('ai-roadmap-resources',  JSON.stringify(resProgress));
