@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Full Stack Engineer Roadmap</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23d4821a'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' font-family='monospace' font-weight='bold' fill='%23fdf6e3'%3E⬡%3C/text%3E%3C/svg%3E">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -146,6 +147,28 @@
   .ph2 { color: var(--c2); border-color: var(--c2); }
   .ph3 { color: var(--c3); border-color: var(--c3); }
   .ph4 { color: var(--c4); border-color: var(--c4); }
+
+  /* Gist sync */
+  .sync-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:12px; padding:12px 18px; background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius); box-shadow:2px 2px 0 var(--border); }
+  .sync-status { font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink3); flex:1; min-width:120px; }
+  .sync-status.ok  { color:#1a6645; }
+  .sync-status.err { color:#8c1f1f; }
+  .sync-btn { font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; padding:7px 14px; cursor:pointer; border:2px solid var(--accent); border-radius:var(--radius-sm); background:var(--accent); color:#fff; transition:all .15s; white-space:nowrap; }
+  .sync-btn:hover { background:var(--accent-h); border-color:var(--accent-h); }
+  .sync-btn.secondary { background:transparent; color:var(--accent); }
+  .sync-btn.secondary:hover { background:var(--accent-bg); }
+
+  /* Modal */
+  .modal-overlay { position:fixed; inset:0; background:rgba(43,36,16,.5); z-index:200; display:flex; align-items:center; justify-content:center; padding:20px; }
+  .modal-overlay.hidden { display:none; }
+  .modal { background:var(--card); border:2px solid var(--border2); border-radius:var(--radius); padding:28px 28px 24px; max-width:440px; width:100%; box-shadow:5px 5px 0 var(--border); }
+  .modal h3 { font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:600; margin-bottom:8px; }
+  .modal p  { font-size:13px; color:var(--ink2); line-height:1.6; margin-bottom:14px; }
+  .modal a  { color:var(--accent); }
+  .modal input { width:100%; font-family:'IBM Plex Mono',monospace; font-size:13px; padding:9px 12px; border:1.5px solid var(--border2); border-radius:var(--radius-sm); background:var(--bg); color:var(--ink); outline:none; margin-bottom:14px; }
+  .modal input:focus { border-color:var(--accent); }
+  .modal-btns { display:flex; gap:8px; flex-wrap:wrap; }
+  .modal-note { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink3); margin-top:12px; line-height:1.6; }
 </style>
 </head>
 <body>
@@ -184,14 +207,38 @@
   </div>
 
   <div class="save-bar">
-    <span class="save-bar-label">Progress file</span>
+    <span class="save-bar-label">Local backup</span>
     <button class="save-btn" onclick="exportProgress()">↓ Save JSON</button>
     <button class="save-btn secondary" onclick="document.getElementById('import-input').click()">↑ Load JSON</button>
     <input type="file" id="import-input" accept=".json" style="display:none" onchange="importProgress(event)">
-    <span class="save-bar-note">Saves weeks + resources completed</span>
+    <span class="save-bar-note">Download / upload progress file</span>
   </div>
 
-  <footer><p>Progress auto-saved to browser — use Save JSON for backup — ship the capstone</p></footer>
+  <div class="sync-row">
+    <span class="sync-status" id="sync-status">☁ Cloud sync: not configured</span>
+    <button class="sync-btn secondary" onclick="openSyncModal()">⚙ Setup sync</button>
+    <button class="sync-btn" id="sync-now-btn" onclick="syncNow()" style="display:none">↑↓ Sync now</button>
+    <button class="sync-btn secondary" id="disconnect-btn" onclick="disconnectGist()" style="display:none">Disconnect</button>
+  </div>
+
+  <footer><p>Progress auto-saved to browser — set up cloud sync to access from any device — ship the capstone</p></footer>
+</div>
+
+<!-- Gist sync modal -->
+<div class="modal-overlay hidden" id="sync-modal">
+  <div class="modal">
+    <h3>☁ Cloud sync via GitHub Gist</h3>
+    <p>Your progress will be saved to a <strong>private GitHub Gist</strong> — accessible from any device, fully under your GitHub account.</p>
+    <p><strong>Step 1:</strong> <a href="https://github.com/settings/tokens/new?description=AI+Roadmap+Sync&scopes=gist" target="_blank">Create a GitHub token</a> — tick only the <code>gist</code> scope, then copy it.</p>
+    <input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" />
+    <p style="margin-bottom:6px"><strong>Step 2:</strong> Paste the token above, then click Connect. A private Gist will be created automatically.</p>
+    <div class="modal-btns">
+      <button class="sync-btn" onclick="connectGist()">Connect &amp; sync</button>
+      <button class="sync-btn secondary" onclick="closeSyncModal()">Cancel</button>
+    </div>
+    <p class="modal-note">⚠ Your token is stored only in this browser's localStorage. It never leaves your device except to call api.github.com. You can revoke it anytime on GitHub.</p>
+  </div>
+</div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -345,9 +392,188 @@ let expandedWeek = null;
 let activeTypeFilter = 'all';
 let activeWeekFilter = 'all';
 
+// ── Local save ────────────────────────────────────────────────────────────────
 function save() {
   localStorage.setItem('ai-roadmap-progress',  JSON.stringify(progress));
   localStorage.setItem('ai-roadmap-resources',  JSON.stringify(resProgress));
+  autoSyncGist();          // fire-and-forget cloud sync after every change
+}
+
+// ── Gist sync helpers ─────────────────────────────────────────────────────────
+const GIST_FILE = 'ai-roadmap-progress.json';
+
+function getGistCreds() {
+  return {
+    token:  localStorage.getItem('gist-token'),
+    gistId: localStorage.getItem('gist-id')
+  };
+}
+
+function setSyncStatus(msg, cls='') {
+  const el = document.getElementById('sync-status');
+  el.textContent = msg; el.className = 'sync-status' + (cls ? ' '+cls : '');
+}
+
+function openSyncModal()  { document.getElementById('sync-modal').classList.remove('hidden'); }
+function closeSyncModal() { document.getElementById('sync-modal').classList.add('hidden'); }
+
+function updateSyncUI() {
+  const { token, gistId } = getGistCreds();
+  const configured = !!(token && gistId);
+  document.getElementById('sync-now-btn').style.display    = configured ? '' : 'none';
+  document.getElementById('disconnect-btn').style.display  = configured ? '' : 'none';
+  if (!configured) setSyncStatus('☁ Cloud sync: not configured');
+}
+
+async function connectGist() {
+  const token = document.getElementById('token-input').value.trim();
+  if (!token) { showToast('Paste your GitHub token first'); return; }
+  setSyncStatus('☁ Connecting…');
+  try {
+    // Check if we already have a gist for this roadmap
+    const listRes = await fetch('https://api.github.com/gists', {
+      headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json' }
+    });
+    if (!listRes.ok) throw new Error('Token invalid or no gist scope');
+    const gists = await listRes.json();
+    const existing = gists.find(g => g.files && g.files[GIST_FILE]);
+
+    let gistId;
+    if (existing) {
+      gistId = existing.id;
+      showToast('Found existing Gist — loading progress…');
+    } else {
+      // Create a new private gist
+      const payload = buildProgressPayload();
+      const createRes = await fetch('https://api.github.com/gists', {
+        method: 'POST',
+        headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          description: 'AI Full Stack Engineer Roadmap — progress sync',
+          public: false,
+          files: { [GIST_FILE]: { content: JSON.stringify(payload, null, 2) } }
+        })
+      });
+      if (!createRes.ok) throw new Error('Failed to create Gist');
+      const created = await createRes.json();
+      gistId = created.id;
+      showToast('Gist created — synced ✓');
+    }
+
+    localStorage.setItem('gist-token', token);
+    localStorage.setItem('gist-id',    gistId);
+    closeSyncModal();
+    document.getElementById('token-input').value = '';
+    updateSyncUI();
+
+    if (existing) {
+      await pullFromGist(token, gistId);  // load their previous progress
+    } else {
+      setSyncStatus('☁ Synced just now', 'ok');
+    }
+  } catch(err) {
+    setSyncStatus('☁ Error: ' + err.message, 'err');
+    showToast('Connection failed — check your token');
+  }
+}
+
+function buildProgressPayload() {
+  const cw = Object.keys(progress).filter(k=>progress[k]).map(Number).sort((a,b)=>a-b);
+  const cr = Object.keys(resProgress).filter(k=>resProgress[k]);
+  return { synced: new Date().toISOString(), completed_weeks: cw, completed_resources: cr,
+           progress_raw: progress, resources_raw: resProgress };
+}
+
+async function pullFromGist(token, gistId) {
+  try {
+    setSyncStatus('☁ Pulling…');
+    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+      headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json' }
+    });
+    if (!res.ok) throw new Error('Fetch failed');
+    const gist = await res.json();
+    const raw = gist.files[GIST_FILE]?.content;
+    if (!raw) throw new Error('File not found in Gist');
+    const data = JSON.parse(raw);
+    applyProgressData(data);
+    setSyncStatus('☁ Synced — ' + new Date().toLocaleTimeString(), 'ok');
+    showToast('Progress loaded from Gist ✓');
+  } catch(err) {
+    setSyncStatus('☁ Pull error: ' + err.message, 'err');
+  }
+}
+
+async function pushToGist(token, gistId) {
+  const payload = buildProgressPayload();
+  const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+    method: 'PATCH',
+    headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
+    body: JSON.stringify({ files: { [GIST_FILE]: { content: JSON.stringify(payload, null, 2) } } })
+  });
+  if (!res.ok) throw new Error('Push failed');
+}
+
+let syncTimer = null;
+function autoSyncGist() {
+  const { token, gistId } = getGistCreds();
+  if (!token || !gistId) return;
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(async () => {
+    setSyncStatus('☁ Syncing…');
+    try {
+      await pushToGist(token, gistId);
+      setSyncStatus('☁ Synced — ' + new Date().toLocaleTimeString(), 'ok');
+    } catch(err) {
+      setSyncStatus('☁ Sync error: ' + err.message, 'err');
+    }
+  }, 1200);   // debounce: wait 1.2s after last change
+}
+
+async function syncNow() {
+  const { token, gistId } = getGistCreds();
+  if (!token || !gistId) return;
+  setSyncStatus('☁ Syncing…');
+  try {
+    await pushToGist(token, gistId);
+    await pullFromGist(token, gistId);
+  } catch(err) {
+    setSyncStatus('☁ Error: ' + err.message, 'err');
+  }
+}
+
+function disconnectGist() {
+  if (!confirm('Disconnect cloud sync? Your local progress stays intact.')) return;
+  localStorage.removeItem('gist-token');
+  localStorage.removeItem('gist-id');
+  updateSyncUI();
+  showToast('Disconnected from Gist');
+}
+
+function applyProgressData(data) {
+  const rawW = data.progress_raw  || data;
+  const rawR = data.resources_raw || {};
+  progress = {}; Object.keys(rawW).forEach(k => { progress[k] = rawW[k]; });
+  resProgress = {}; Object.keys(rawR).forEach(k => { resProgress[k] = rawR[k]; });
+  // Persist locally too
+  localStorage.setItem('ai-roadmap-progress',  JSON.stringify(progress));
+  localStorage.setItem('ai-roadmap-resources',  JSON.stringify(resProgress));
+  // Refresh UI
+  document.querySelectorAll('.wcard').forEach(card => {
+    const wn = card.id.replace('wcard-','');
+    const btn = document.getElementById('chk-'+wn);
+    if (progress[wn]) { card.classList.add('done'); btn?.classList.add('checked'); }
+    else              { card.classList.remove('done'); btn?.classList.remove('checked'); }
+  });
+  updateOverall(); renderAllResources();
+}
+
+// Load from Gist on first open (if configured)
+async function initGistSync() {
+  const { token, gistId } = getGistCreds();
+  updateSyncUI();
+  if (!token || !gistId) return;
+  setSyncStatus('☁ Loading from cloud…');
+  await pullFromGist(token, gistId);
 }
 
 function updateOverall() {
@@ -535,11 +761,7 @@ function renderAllResources() {
 }
 
 function exportProgress() {
-  const cw = Object.keys(progress).filter(k=>progress[k]).map(Number).sort((a,b)=>a-b);
-  const cr = Object.keys(resProgress).filter(k=>resProgress[k]);
-  const data = { exported: new Date().toISOString(), completed_weeks: cw, completed_resources: cr,
-    total_weeks_done: cw.length, total_resources_done: cr.length,
-    progress_raw: progress, resources_raw: resProgress };
+  const data = buildProgressPayload();
   const blob = new Blob([JSON.stringify(data, null, 2)], { type:'application/json' });
   const url  = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href = url; a.download = 'ai-roadmap-progress.json'; a.click();
@@ -553,25 +775,16 @@ function importProgress(e) {
     try {
       const data = JSON.parse(ev.target.result);
       const rawW = data.progress_raw  || data;
-      const rawR = data.resources_raw || {};
       if (!Object.keys(rawW).every(k => !isNaN(Number(k)) && typeof rawW[k] === 'boolean')) throw 0;
-      progress = {}; Object.keys(rawW).forEach(k => { progress[k] = rawW[k]; });
-      resProgress = {}; Object.keys(rawR).forEach(k => { resProgress[k] = rawR[k]; });
-      save();
-      document.querySelectorAll('.wcard').forEach(card => {
-        const wn = card.id.replace('wcard-','');
-        const btn = document.getElementById('chk-'+wn);
-        if (progress[wn]) { card.classList.add('done'); btn?.classList.add('checked'); }
-        else              { card.classList.remove('done'); btn?.classList.remove('checked'); }
-      });
-      updateOverall(); renderAllResources(); showToast('Progress loaded ✓');
+      applyProgressData(data);
+      showToast('Progress loaded ✓');
     } catch { showToast('Invalid JSON file'); }
     e.target.value = '';
   };
   reader.readAsText(file);
 }
 
-buildRoadmap(); buildWeekFilters(); renderAllResources(); updateOverall();
+buildRoadmap(); buildWeekFilters(); renderAllResources(); updateOverall(); initGistSync();
 </script>
 </body>
 </html>
