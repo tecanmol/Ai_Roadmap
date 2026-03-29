@@ -148,7 +148,7 @@
   .ph3 { color: var(--c3); border-color: var(--c3); }
   .ph4 { color: var(--c4); border-color: var(--c4); }
 
-  /* Gist sync */
+  /* Supabase sync */
   .sync-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:12px; padding:12px 18px; background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius); box-shadow:2px 2px 0 var(--border); }
   .sync-status { font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink3); flex:1; min-width:120px; }
   .sync-status.ok  { color:#1a6645; }
@@ -215,28 +215,55 @@
   </div>
 
   <div class="sync-row">
-    <span class="sync-status" id="sync-status">☁ Cloud sync: not configured</span>
-    <button class="sync-btn secondary" onclick="openSyncModal()">⚙ Setup sync</button>
-    <button class="sync-btn" id="sync-now-btn" onclick="syncNow()" style="display:none">↑↓ Sync now</button>
-    <button class="sync-btn secondary" id="disconnect-btn" onclick="disconnectGist()" style="display:none">Disconnect</button>
+    <span class="sync-status" id="sync-status">☁ Cloud sync: not set up</span>
+    <button class="sync-btn secondary" id="setup-btn" onclick="openSyncModal()">⚙ Setup sync</button>
+    <button class="sync-btn secondary" id="signout-btn" onclick="sbSignOut()" style="display:none">Sign out</button>
   </div>
 
   <footer><p>Progress auto-saved to browser — set up cloud sync to access from any device — ship the capstone</p></footer>
 </div>
 
-<!-- Gist sync modal -->
+<!-- Supabase sync modal -->
 <div class="modal-overlay hidden" id="sync-modal">
-  <div class="modal">
-    <h3>☁ Cloud sync via GitHub Gist</h3>
-    <p>Your progress will be saved to a <strong>private GitHub Gist</strong> — accessible from any device, fully under your GitHub account.</p>
-    <p><strong>Step 1:</strong> <a href="https://github.com/settings/tokens/new?description=AI+Roadmap+Sync&scopes=gist" target="_blank">Create a GitHub token</a> — tick only the <code>gist</code> scope, then copy it.</p>
-    <input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" />
-    <p style="margin-bottom:6px"><strong>Step 2:</strong> Paste the token above, then click Connect. A private Gist will be created automatically.</p>
-    <div class="modal-btns">
-      <button class="sync-btn" onclick="connectGist()">Connect &amp; sync</button>
-      <button class="sync-btn secondary" onclick="closeSyncModal()">Cancel</button>
+  <div class="modal" style="max-width:480px">
+    <h3>☁ Cross-device sync setup</h3>
+
+    <!-- Step 1: Supabase config -->
+    <div id="modal-step-config">
+      <p>Uses a <strong>free Supabase project</strong> you own. One-time setup (~3 min).</p>
+      <p><strong>Step 1 of 2 — Create your Supabase project:</strong></p>
+      <ol style="font-size:13px;color:var(--ink2);line-height:2;padding-left:18px;margin-bottom:12px">
+        <li>Go to <a href="https://supabase.com" target="_blank">supabase.com</a> → <strong>Start your project</strong> (free)</li>
+        <li>New project → name it <em>ai-roadmap</em> → set a DB password → Create</li>
+        <li>Wait ~1 min for it to provision</li>
+        <li>Go to <strong>Project Settings → API</strong></li>
+        <li>Copy <strong>Project URL</strong> and the <strong>anon public</strong> key</li>
+        <li>Go to <strong>Table Editor → New table</strong> → name it <code>progress</code> → disable RLS → add two columns:<br>
+          <code style="font-size:11px">user_id text (primary key) &nbsp;|&nbsp; data jsonb</code>
+        </li>
+      </ol>
+      <input type="text"     id="sb-url"    placeholder="Project URL  (https://xxxx.supabase.co)"  autocomplete="off" />
+      <input type="text"     id="sb-anonkey" placeholder="anon public key  (eyJh…)"               autocomplete="off" />
+      <div class="modal-btns">
+        <button class="sync-btn" onclick="saveSbConfig()">Next →</button>
+        <button class="sync-btn secondary" onclick="closeSyncModal()">Cancel</button>
+      </div>
+      <p class="modal-note">Config stored only in this browser's localStorage. Supabase free tier: 500 MB DB, unlimited API calls — more than enough.</p>
     </div>
-    <p class="modal-note">⚠ Your token is stored only in this browser's localStorage. It never leaves your device except to call api.github.com. You can revoke it anytime on GitHub.</p>
+
+    <!-- Step 2: username / passphrase -->
+    <div id="modal-step-login" style="display:none">
+      <p><strong>Step 2 of 2 — Choose your sync identity</strong></p>
+      <p>Pick a username and passphrase. Enter the <strong>same pair on every device</strong> to share progress. They're hashed locally into a storage key — never sent to any auth server.</p>
+      <input type="text"     id="sb-username"   placeholder="Username  (e.g. arjun)" autocomplete="off" />
+      <input type="password" id="sb-passphrase" placeholder="Passphrase"             autocomplete="off" />
+      <div class="modal-btns">
+        <button class="sync-btn" onclick="sbSignIn()">Connect &amp; sync</button>
+        <button class="sync-btn secondary" onclick="showConfigStep()">← Back</button>
+        <button class="sync-btn secondary" onclick="closeSyncModal()">Cancel</button>
+      </div>
+      <p class="modal-note">⚠ No password recovery — if you forget your passphrase you'll start a fresh record. Write it down.</p>
+    </div>
   </div>
 </div>
 </div>
@@ -394,208 +421,174 @@ let activeWeekFilter = 'all';
 
 // ── Local save ────────────────────────────────────────────────────────────────
 function save() {
-  localStorage.setItem('ai-roadmap-progress',  JSON.stringify(progress));
-  localStorage.setItem('ai-roadmap-resources',  JSON.stringify(resProgress));
-  autoSyncGist();          // fire-and-forget cloud sync after every change
+  localStorage.setItem('ai-roadmap-progress', JSON.stringify(progress));
+  localStorage.setItem('ai-roadmap-resources', JSON.stringify(resProgress));
+  scheduleCloudPush();
 }
 
-// ── Gist sync helpers ─────────────────────────────────────────────────────────
-const GIST_FILE = 'ai-roadmap-progress.json';
+// ── Supabase sync (plain fetch — no SDK needed) ───────────────────────────────
+let sbUserId = null;
 
-function getGistCreds() {
+function sbUrl()     { return localStorage.getItem('sb-url')?.replace(/\/$/, ''); }
+function sbAnonKey() { return localStorage.getItem('sb-anonkey'); }
+
+function setSyncStatus(msg, cls = '') {
+  const el = document.getElementById('sync-status');
+  el.textContent = msg;
+  el.className = 'sync-status' + (cls ? ' ' + cls : '');
+}
+function openSyncModal()  { document.getElementById('sync-modal').classList.remove('hidden'); }
+function closeSyncModal() { document.getElementById('sync-modal').classList.add('hidden'); }
+function showConfigStep() {
+  document.getElementById('modal-step-config').style.display = '';
+  document.getElementById('modal-step-login').style.display  = 'none';
+}
+
+// Hash username+passphrase → deterministic row ID (no auth server needed)
+async function hashKey(username, passphrase) {
+  const raw = username.trim().toLowerCase() + ':' + passphrase;
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 40);
+}
+
+function saveSbConfig() {
+  const url = document.getElementById('sb-url').value.trim();
+  const key = document.getElementById('sb-anonkey').value.trim();
+  if (!url || !key) { showToast('Fill in both fields'); return; }
+  localStorage.setItem('sb-url',     url);
+  localStorage.setItem('sb-anonkey', key);
+  document.getElementById('modal-step-config').style.display = 'none';
+  document.getElementById('modal-step-login').style.display  = '';
+}
+
+async function sbSignIn() {
+  const username   = document.getElementById('sb-username').value.trim();
+  const passphrase = document.getElementById('sb-passphrase').value.trim();
+  if (!username || !passphrase) { showToast('Fill in username and passphrase'); return; }
+  if (!sbUrl() || !sbAnonKey()) { showToast('Config missing — go back'); return; }
+  setSyncStatus('☁ Connecting…');
+  try {
+    sbUserId = await hashKey(username, passphrase);
+    localStorage.setItem('sb-user-id',      sbUserId);
+    localStorage.setItem('sb-username-hint', username);
+    closeSyncModal();
+    document.getElementById('sb-username').value   = '';
+    document.getElementById('sb-passphrase').value = '';
+    updateSyncUI();
+    await sbPull();
+  } catch (err) {
+    setSyncStatus('☁ Error: ' + err.message, 'err');
+    showToast('Connection failed — check config');
+    console.error(err);
+  }
+}
+
+function sbSignOut() {
+  if (!confirm('Sign out? Your local progress stays intact.')) return;
+  localStorage.removeItem('sb-user-id');
+  localStorage.removeItem('sb-username-hint');
+  sbUserId = null;
+  updateSyncUI();
+  showToast('Signed out');
+}
+
+function updateSyncUI() {
+  const uid  = localStorage.getItem('sb-user-id');
+  const hint = localStorage.getItem('sb-username-hint') || 'connected';
+  const ok   = !!(uid && sbUrl() && sbAnonKey());
+  document.getElementById('setup-btn').style.display   = ok ? 'none' : '';
+  document.getElementById('signout-btn').style.display = ok ? '' : 'none';
+  if (!ok) setSyncStatus('☁ Cloud sync: not set up');
+  else     setSyncStatus('☁ Synced as ' + hint, 'ok');
+}
+
+function sbHeaders() {
   return {
-    token:  localStorage.getItem('gist-token'),
-    gistId: localStorage.getItem('gist-id')
+    'Content-Type':  'application/json',
+    'apikey':        sbAnonKey(),
+    'Authorization': 'Bearer ' + sbAnonKey(),
+    'Prefer':        'resolution=merge-duplicates'
   };
 }
 
-function setSyncStatus(msg, cls='') {
-  const el = document.getElementById('sync-status');
-  el.textContent = msg; el.className = 'sync-status' + (cls ? ' '+cls : '');
-}
-
-function openSyncModal()  { document.getElementById('sync-modal').classList.remove('hidden'); }
-function closeSyncModal() { document.getElementById('sync-modal').classList.add('hidden'); }
-
-function updateSyncUI() {
-  const { token, gistId } = getGistCreds();
-  const configured = !!(token && gistId);
-  document.getElementById('sync-now-btn').style.display    = configured ? '' : 'none';
-  document.getElementById('disconnect-btn').style.display  = configured ? '' : 'none';
-  if (!configured) setSyncStatus('☁ Cloud sync: not configured');
-}
-
-async function findExistingGist(token) {
-  let page = 1;
-  while (true) {
-    const res = await fetch(`https://api.github.com/gists?per_page=100&page=${page}`, {
-      headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json' }
-    });
-    if (!res.ok) throw new Error('Token invalid or missing gist scope');
-    const gists = await res.json();
-    if (!gists.length) return null;
-    const found = gists.find(g => g.files && g.files[GIST_FILE]);
-    if (found) return found;
-    if (gists.length < 100) return null;
-    page++;
+async function sbPull() {
+  setSyncStatus('☁ Loading from cloud…');
+  const res = await fetch(
+    `${sbUrl()}/rest/v1/progress?user_id=eq.${sbUserId}&select=data`,
+    { headers: { ...sbHeaders(), 'Prefer': '' } }
+  );
+  if (!res.ok) throw new Error('Fetch failed (' + res.status + ') — check URL/key');
+  const rows = await res.json();
+  if (rows.length && rows[0].data) {
+    applyProgressData(rows[0].data);
+    setSyncStatus('☁ Synced as ' + (localStorage.getItem('sb-username-hint') || 'you'), 'ok');
+    showToast('Progress loaded from cloud ✓');
+  } else {
+    await sbPush();   // first time — push local data up
+    setSyncStatus('☁ Synced as ' + (localStorage.getItem('sb-username-hint') || 'you'), 'ok');
+    showToast('New profile created — synced ✓');
   }
 }
 
-async function connectGist() {
-  const token = document.getElementById('token-input').value.trim();
-  if (!token) { showToast('Paste your GitHub token first'); return; }
-  setSyncStatus('☁ Connecting…');
-  try {
-    const existing = await findExistingGist(token);
-
-    let gistId;
-    if (existing) {
-      gistId = existing.id;
-      showToast('Found existing Gist — loading progress…');
-    } else {
-      // Create a new private gist
-      const payload = buildProgressPayload();
-      const createRes = await fetch('https://api.github.com/gists', {
-        method: 'POST',
-        headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          description: 'AI Full Stack Engineer Roadmap — progress sync',
-          public: false,
-          files: { [GIST_FILE]: { content: JSON.stringify(payload, null, 2) } }
-        })
-      });
-      if (!createRes.ok) throw new Error('Failed to create Gist');
-      const created = await createRes.json();
-      gistId = created.id;
-      showToast('Gist created — synced ✓');
-    }
-
-    localStorage.setItem('gist-token', token);
-    localStorage.setItem('gist-id',    gistId);
-    closeSyncModal();
-    document.getElementById('token-input').value = '';
-    updateSyncUI();
-
-    if (existing) {
-      await pullFromGist(token, gistId);  // load their previous progress
-    } else {
-      setSyncStatus('☁ Synced just now', 'ok');
-    }
-  } catch(err) {
-    setSyncStatus('☁ Error: ' + err.message, 'err');
-    showToast('Connection failed — check your token');
-  }
-}
-
-function buildProgressPayload() {
-  const cw = Object.keys(progress).filter(k=>progress[k]).map(Number).sort((a,b)=>a-b);
-  const cr = Object.keys(resProgress).filter(k=>resProgress[k]);
-  return { synced: new Date().toISOString(), completed_weeks: cw, completed_resources: cr,
-           progress_raw: progress, resources_raw: resProgress };
-}
-
-async function pullFromGist(token, gistId) {
-  try {
-    setSyncStatus('☁ Pulling…');
-    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
-      headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json' }
-    });
-    if (!res.ok) throw new Error('Fetch failed (' + res.status + ')');
-    const gist = await res.json();
-    const fileObj = gist.files[GIST_FILE];
-    if (!fileObj) throw new Error('File not found in Gist');
-    // GitHub truncates large files — always fetch via raw_url to get full content
-    let rawContent;
-    if (fileObj.truncated || !fileObj.content) {
-      const rawRes = await fetch(fileObj.raw_url);
-      if (!rawRes.ok) throw new Error('Could not fetch raw content');
-      rawContent = await rawRes.text();
-    } else {
-      rawContent = fileObj.content;
-    }
-    const data = JSON.parse(rawContent);
-    applyProgressData(data);
-    setSyncStatus('☁ Synced — ' + new Date().toLocaleTimeString(), 'ok');
-    showToast('Progress loaded from Gist ✓');
-  } catch(err) {
-    setSyncStatus('☁ Pull error: ' + err.message, 'err');
-  }
-}
-
-async function pushToGist(token, gistId) {
-  const payload = buildProgressPayload();
-  const res = await fetch(`https://api.github.com/gists/${gistId}`, {
-    method: 'PATCH',
-    headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
-    body: JSON.stringify({ files: { [GIST_FILE]: { content: JSON.stringify(payload, null, 2) } } })
+async function sbPush() {
+  if (!sbUserId) return;
+  const payload = { progress_raw: progress, resources_raw: resProgress, synced: new Date().toISOString() };
+  const res = await fetch(`${sbUrl()}/rest/v1/progress`, {
+    method:  'POST',
+    headers: sbHeaders(),
+    body:    JSON.stringify({ user_id: sbUserId, data: payload })
   });
-  if (!res.ok) throw new Error('Push failed');
+  if (!res.ok) {
+    const txt = await res.text();
+    throw new Error('Push failed (' + res.status + '): ' + txt);
+  }
 }
 
-let syncTimer = null;
-function autoSyncGist() {
-  const { token, gistId } = getGistCreds();
-  if (!token || !gistId) return;
-  clearTimeout(syncTimer);
-  syncTimer = setTimeout(async () => {
+let pushTimer = null;
+function scheduleCloudPush() {
+  if (!sbUserId) return;
+  clearTimeout(pushTimer);
+  pushTimer = setTimeout(async () => {
     setSyncStatus('☁ Syncing…');
     try {
-      await pushToGist(token, gistId);
+      await sbPush();
       setSyncStatus('☁ Synced — ' + new Date().toLocaleTimeString(), 'ok');
-    } catch(err) {
+    } catch (err) {
       setSyncStatus('☁ Sync error: ' + err.message, 'err');
+      console.error(err);
     }
-  }, 1200);   // debounce: wait 1.2s after last change
-}
-
-async function syncNow() {
-  const { token, gistId } = getGistCreds();
-  if (!token || !gistId) return;
-  setSyncStatus('☁ Syncing…');
-  try {
-    await pushToGist(token, gistId);
-    await pullFromGist(token, gistId);
-  } catch(err) {
-    setSyncStatus('☁ Error: ' + err.message, 'err');
-  }
-}
-
-function disconnectGist() {
-  if (!confirm('Disconnect cloud sync? Your local progress stays intact.')) return;
-  localStorage.removeItem('gist-token');
-  localStorage.removeItem('gist-id');
-  updateSyncUI();
-  showToast('Disconnected from Gist');
+  }, 1500);
 }
 
 function applyProgressData(data) {
   const rawW = data.progress_raw  || data;
   const rawR = data.resources_raw || {};
-  // Week keys must be strings (localStorage stores them as strings "1","2"…)
   progress = {};
   Object.keys(rawW).forEach(k => { progress[String(k)] = !!rawW[k]; });
   resProgress = {};
   Object.keys(rawR).forEach(k => { resProgress[String(k)] = !!rawR[k]; });
-  // Persist locally too
-  localStorage.setItem('ai-roadmap-progress',  JSON.stringify(progress));
-  localStorage.setItem('ai-roadmap-resources',  JSON.stringify(resProgress));
-  // Refresh UI
+  localStorage.setItem('ai-roadmap-progress', JSON.stringify(progress));
+  localStorage.setItem('ai-roadmap-resources', JSON.stringify(resProgress));
   document.querySelectorAll('.wcard').forEach(card => {
-    const wn = card.id.replace('wcard-','');
-    const btn = document.getElementById('chk-'+wn);
-    if (progress[wn]) { card.classList.add('done'); btn?.classList.add('checked'); }
+    const wn  = card.id.replace('wcard-', '');
+    const btn = document.getElementById('chk-' + wn);
+    if (progress[wn]) { card.classList.add('done');    btn?.classList.add('checked'); }
     else              { card.classList.remove('done'); btn?.classList.remove('checked'); }
   });
   updateOverall(); renderAllResources();
 }
 
-// Load from Gist on first open (if configured)
-async function initGistSync() {
-  const { token, gistId } = getGistCreds();
+// Re-connect automatically on every page load
+async function initCloudSync() {
   updateSyncUI();
-  if (!token || !gistId) return;
-  setSyncStatus('☁ Loading from cloud…');
-  await pullFromGist(token, gistId);
+  sbUserId = localStorage.getItem('sb-user-id');
+  if (!sbUserId || !sbUrl() || !sbAnonKey()) return;
+  try {
+    await sbPull();
+  } catch (err) {
+    setSyncStatus('☁ Reconnect error: ' + err.message, 'err');
+    console.error(err);
+  }
 }
 
 function updateOverall() {
@@ -806,7 +799,7 @@ function importProgress(e) {
   reader.readAsText(file);
 }
 
-buildRoadmap(); buildWeekFilters(); renderAllResources(); updateOverall(); initGistSync();
+buildRoadmap(); buildWeekFilters(); renderAllResources(); updateOverall(); initCloudSync();
 </script>
 </body>
 </html>
