@@ -1056,7 +1056,14 @@ const papers = [
   { week:"Wk 12", title:"RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval (2024)", why:"Current frontier of RAG. Implement this and you have a portfolio piece 99% of candidates don't.", focus:"Abstract + approach + limitations.", id:"p12" },
 ];
 
-// ── STATE ─────────────────────────────────────────────────────────────────────
+// ── localStorage wrapper (defined first — everything else depends on it) ──────
+const LS = {
+  get:    k => { try { return localStorage.getItem(k); } catch { return null; } },
+  set:    (k,v) => { try { localStorage.setItem(k, v); } catch {} },
+  remove: k => { try { localStorage.removeItem(k); } catch {} },
+};
+
+// ── STATE ─────────────────────────────────────────────────────────
 let progress    = JSON.parse(LS.get('ai-roadmap-progress')  || '{}');
 let resProgress = JSON.parse(LS.get('ai-roadmap-resources') || '{}');
 let paperDone   = JSON.parse(LS.get('ai-roadmap-papers')    || '{}');
@@ -1416,12 +1423,6 @@ function sanitizeBools(obj) {
 // ══════════════════════════════════════════════════════════════════════════════
 // ── CLOUD SYNC — Supabase + localStorage hybrid ───────────────────────────────
 // ══════════════════════════════════════════════════════════════════════════════
-
-const LS = {
-  get:    k => { try { return localStorage.getItem(k); } catch { return null; } },
-  set:    (k,v) => { try { localStorage.setItem(k, v); } catch {} },
-  remove: k => { try { localStorage.removeItem(k); } catch {} },
-};
 
 // Supabase config (stored in localStorage — never leaves the browser except to user's own Supabase)
 function sbUrl()     { return (LS.get('sb-url')     || '').replace(/\/$/, ''); }
