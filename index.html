@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Full Stack Engineer Roadmap</title>
+<title>Your 6-Month AI Career Roadmap</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23d4821a'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' font-family='monospace' font-weight='bold' fill='%23fdf6e3'%3E⬡%3C/text%3E%3C/svg%3E">
 <style>
@@ -33,14 +33,14 @@
 
   body { background: var(--bg); color: var(--ink); font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; line-height: 1.6; }
 
-  .page { max-width: 880px; margin: 0 auto; padding: 48px 24px 80px; }
+  .page { max-width: 920px; margin: 0 auto; padding: 48px 24px 80px; }
 
   /* Header */
-  .header { display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; margin-bottom: 48px; padding-bottom: 24px; border-bottom: 2px solid var(--border2); flex-wrap: wrap; }
+  .header { display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 2px solid var(--border2); flex-wrap: wrap; }
   .header-left { flex: 1; min-width: 240px; }
   .eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink3); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 10px; }
-  h1 { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: clamp(22px, 4vw, 34px); line-height: 1.2; color: var(--ink); margin-bottom: 8px; }
-  .subtitle { font-size: 14px; color: var(--ink2); max-width: 380px; line-height: 1.6; }
+  h1 { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: clamp(22px, 4vw, 32px); line-height: 1.2; color: var(--ink); margin-bottom: 8px; }
+  .subtitle { font-size: 14px; color: var(--ink2); max-width: 420px; line-height: 1.6; }
 
   .progress-card { background: var(--card); border: 2px solid var(--border2); border-radius: var(--radius); padding: 18px 22px; min-width: 210px; flex-shrink: 0; box-shadow: 3px 3px 0 var(--border); }
   .prog-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
@@ -50,14 +50,91 @@
   .prog-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.4s ease; width: 0%; }
   .prog-pct { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent); font-weight: 500; }
 
-  /* Phase */
+  /* Nav tabs */
+  .nav-tabs { display: flex; gap: 6px; margin-bottom: 32px; flex-wrap: wrap; }
+  .nav-tab { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; padding: 8px 16px; border: 2px solid var(--border2); border-radius: var(--radius-sm); background: var(--card); color: var(--ink2); cursor: pointer; transition: all 0.15s; letter-spacing: 0.05em; }
+  .nav-tab:hover { border-color: var(--accent); color: var(--accent); }
+  .nav-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* View panels */
+  .view-panel { display: none; }
+  .view-panel.active { display: block; }
+
+  /* ── PLAN OVERVIEW ── */
+  .plan-intro { background: var(--card); border: 2px solid var(--border2); border-radius: var(--radius); padding: 24px 28px; margin-bottom: 28px; box-shadow: 3px 3px 0 var(--border); }
+  .plan-intro h2 { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 600; margin-bottom: 10px; color: var(--ink); }
+  .plan-intro p { font-size: 14px; color: var(--ink2); line-height: 1.7; margin-bottom: 8px; }
+  .plan-intro p:last-child { margin-bottom: 0; }
+  .plan-intro strong { color: var(--ink); }
+
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .info-tile { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: 2px 2px 0 var(--border); }
+  .info-tile-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ink3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+  .info-tile-value { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; color: var(--ink); }
+
+  /* Skills audit */
+  .section-title { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1.5px solid var(--border); }
+  .skill-audit { margin-bottom: 28px; }
+  .skill-row { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 8px; box-shadow: 2px 2px 0 var(--border); }
+  .skill-row-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; flex-wrap: wrap; gap: 6px; }
+  .skill-name { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; color: var(--ink); }
+  .skill-verdict { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .verdict-low { background: #fde8e8; color: #8c1f1f; border: 1.5px solid #e8b4b4; }
+  .verdict-mid { background: #fff3d4; color: #8c4800; border: 1.5px solid #e8c870; }
+  .verdict-high { background: var(--done-bg); color: #1a6645; border: 1.5px solid var(--done-bd); }
+  .skill-note { font-size: 13px; color: var(--ink2); line-height: 1.5; }
+
+  /* Milestones */
+  .milestones { margin-bottom: 28px; }
+  .milestone-row { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 10px; }
+  .milestone-month { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; color: var(--accent); background: var(--accent-bg); border: 1.5px solid var(--accent); border-radius: var(--radius-sm); padding: 4px 10px; white-space: nowrap; flex-shrink: 0; min-width: 70px; text-align: center; margin-top: 2px; }
+  .milestone-text { font-size: 13px; color: var(--ink2); line-height: 1.55; }
+
+  /* LinkedIn Posts */
+  .posts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
+  @media (max-width: 620px) { .posts-grid { grid-template-columns: 1fr; } }
+  .post-card { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 16px 18px; box-shadow: 2px 2px 0 var(--border); cursor: pointer; transition: border-color 0.15s; position: relative; }
+  .post-card:hover { border-color: var(--border2); }
+  .post-card.open { border-color: var(--accent); border-width: 2px; box-shadow: 3px 3px 0 var(--accent-bg); }
+  .post-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ink3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+  .post-type-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; padding: 2px 8px; border-radius: 20px; border: 1.5px solid var(--border2); color: var(--ink2); background: var(--card2); margin-bottom: 6px; display: inline-block; }
+  .post-title { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 4px; line-height: 1.3; }
+  .post-hook { font-size: 13px; color: var(--ink2); line-height: 1.45; }
+  .post-expand { display: none; margin-top: 14px; padding-top: 14px; border-top: 1.5px solid var(--border); }
+  .post-card.open .post-expand { display: block; }
+  .post-body { font-size: 13px; color: var(--ink); line-height: 1.7; white-space: pre-line; background: var(--bg); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 10px; }
+  .copy-btn { font-family: 'IBM Plex Mono', monospace; font-size: 11px; padding: 5px 12px; border: 1.5px solid var(--accent); border-radius: var(--radius-sm); background: transparent; color: var(--accent); cursor: pointer; transition: all 0.15s; }
+  .copy-btn:hover { background: var(--accent-bg); }
+
+  /* Outreach templates */
+  .outreach-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+  .tmpl-card { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 16px 18px; box-shadow: 2px 2px 0 var(--border); }
+  .tmpl-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+  .tmpl-body { font-size: 13px; color: var(--ink); line-height: 1.7; white-space: pre-line; background: var(--bg); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 10px; font-family: 'IBM Plex Mono', monospace; }
+
+  /* Papers */
+  .papers-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .paper-card { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 14px 16px; display: flex; gap: 14px; align-items: flex-start; box-shadow: 2px 2px 0 var(--border); }
+  .paper-week { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; color: var(--accent); background: var(--accent-bg); border: 1.5px solid var(--accent); border-radius: var(--radius-sm); padding: 4px 8px; white-space: nowrap; flex-shrink: 0; min-width: 50px; text-align: center; margin-top: 2px; }
+  .paper-info { flex: 1; }
+  .paper-title { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .paper-why { font-size: 13px; color: var(--ink2); line-height: 1.5; margin-bottom: 4px; }
+  .paper-focus { font-size: 12px; color: var(--ink3); }
+  .paper-chk { width: 20px; height: 20px; flex-shrink: 0; border: 2px solid var(--border2); border-radius: 4px; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; margin-top: 2px; }
+  .paper-chk:hover { border-color: var(--accent); }
+  .paper-chk.checked { background: var(--accent); border-color: var(--accent); }
+  .paper-chkicon { display: none; }
+  .paper-chk.checked .paper-chkicon { display: block; }
+  .paper-card.done { background: var(--done-bg); border-color: var(--done-bd); }
+  .paper-card.done .paper-title { text-decoration: line-through; color: var(--ink3); }
+
+  /* ── ROADMAP (weekly view) ── */
   .phase { margin-bottom: 44px; }
   .phase-row { display: grid; grid-template-columns: 90px 1fr auto; align-items: center; gap: 12px; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 2px solid var(--border2); }
   .phase-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border: 2px solid currentColor; border-radius: var(--radius-sm); white-space: nowrap; font-weight: 600; }
   .phase-title { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; color: var(--ink); }
   .phase-count { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink3); white-space: nowrap; }
 
-  /* Week cards */
   .weeks { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   @media (max-width: 580px) { .weeks { grid-template-columns: 1fr; } }
 
@@ -93,6 +170,10 @@
   .tag { font-size: 12px; padding: 3px 10px; border: 1.5px solid var(--border); border-radius: 20px; color: var(--ink2); background: var(--card); font-family: 'IBM Plex Mono', monospace; }
   .tag.tool { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
   .tag.project { border-radius: var(--radius-sm); border-color: var(--border2); color: var(--ink); font-size: 13px; padding: 6px 12px; width: 100%; font-family: 'IBM Plex Sans', sans-serif; background: var(--card); }
+
+  /* Detail outreach */
+  .detail-outreach { margin-top: 14px; padding-top: 14px; border-top: 1.5px solid var(--border); }
+  .outreach-inline { font-size: 13px; color: var(--ink2); line-height: 1.6; background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; font-style: italic; }
 
   /* Resources */
   .res-section { margin-top: 16px; border-top: 1.5px solid var(--border); padding-top: 16px; }
@@ -137,38 +218,100 @@
   .save-btn.secondary:hover { background: var(--accent-bg); }
   .save-bar-note { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink3); }
 
-  .toast { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(60px); background: var(--ink); color: var(--bg); font-family: 'IBM Plex Mono', monospace; font-size: 12px; padding: 9px 18px; border-radius: var(--radius-sm); z-index: 100; transition: transform 0.25s ease; pointer-events: none; }
+  .toast { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(60px); background: var(--ink); color: var(--bg); font-family: 'IBM Plex Mono', monospace; font-size: 12px; padding: 9px 18px; border-radius: var(--radius-sm); z-index: 300; transition: transform 0.25s ease; pointer-events: none; white-space: nowrap; }
   .toast.show { transform: translateX(-50%) translateY(0); }
 
   footer { margin-top: 60px; padding-top: 20px; border-top: 1.5px solid var(--border); }
   footer p { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink3); }
+
+  /* ── SYNC BAR ── */
+  .sync-bar { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-top:32px; padding:12px 18px; background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius); box-shadow:2px 2px 0 var(--border); }
+  .sync-bar-left { display:flex; align-items:center; gap:8px; flex:1; min-width:180px; }
+  .sync-bar-right { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .sync-indicator { width:8px; height:8px; border-radius:50%; background:var(--border2); flex-shrink:0; transition:background 0.3s; }
+  .sync-indicator.ok     { background:#1a6645; box-shadow:0 0 0 2px #b8dcca; }
+  .sync-indicator.syncing { background:var(--accent); animation:pulse 1s infinite; }
+  .sync-indicator.err    { background:#8c1f1f; box-shadow:0 0 0 2px #f0b8b8; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+  .sync-status-text { font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink2); font-weight:500; }
+  .sync-last { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink3); }
+  .sync-action-btn { font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; padding:7px 14px; cursor:pointer; border:2px solid var(--accent); border-radius:var(--radius-sm); background:var(--accent); color:#fff; transition:all .15s; white-space:nowrap; }
+  .sync-action-btn:hover { background:var(--accent-h); border-color:var(--accent-h); }
+  .sync-action-btn.secondary { background:transparent; color:var(--accent); }
+  .sync-action-btn.secondary:hover { background:var(--accent-bg); }
+
+  /* ── MODAL ── */
+  .modal-overlay { position:fixed; inset:0; background:rgba(43,36,16,.55); z-index:200; display:flex; align-items:center; justify-content:center; padding:20px; backdrop-filter:blur(2px); }
+  .modal-overlay.hidden { display:none; }
+  .modal { background:var(--card); border:2px solid var(--border2); border-radius:var(--radius); padding:28px; max-width:500px; width:100%; box-shadow:6px 6px 0 var(--border); max-height:90vh; overflow-y:auto; }
+  .modal-title { font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600; color:var(--ink); margin-bottom:6px; }
+  .modal-subtitle { font-size:13px; color:var(--ink2); line-height:1.65; margin-bottom:18px; }
+  .modal-subtitle a { color:var(--accent); }
+  .modal-section-label { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink3); text-transform:uppercase; letter-spacing:.1em; margin-bottom:10px; margin-top:4px; }
+  .modal-steps-list { display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }
+  .modal-step-item { display:flex; gap:10px; align-items:flex-start; font-size:13px; color:var(--ink2); line-height:1.55; }
+  .modal-step-item a { color:var(--accent); }
+  .modal-step-item code { font-family:'IBM Plex Mono',monospace; font-size:12px; background:var(--card2); padding:1px 5px; border-radius:3px; }
+  .step-num { font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; background:var(--accent); color:#fff; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+  .sql-block { font-family:'IBM Plex Mono',monospace; font-size:12px; background:var(--ink); color:#e8d5b0; padding:12px 14px; border-radius:var(--radius-sm); white-space:pre; overflow-x:auto; margin-bottom:6px; line-height:1.6; }
+  .copy-sql-btn { font-family:'IBM Plex Mono',monospace; font-size:11px; padding:4px 12px; border:1.5px solid var(--border2); border-radius:var(--radius-sm); background:transparent; color:var(--accent); cursor:pointer; margin-bottom:16px; transition:all .15s; }
+  .copy-sql-btn:hover { background:var(--accent-bg); border-color:var(--accent); }
+  .modal-fields { display:flex; flex-direction:column; gap:6px; margin-bottom:12px; }
+  .field-label { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink3); text-transform:uppercase; letter-spacing:.08em; margin-top:4px; }
+  .modal-fields input { width:100%; font-family:'IBM Plex Mono',monospace; font-size:13px; padding:9px 12px; border:1.5px solid var(--border2); border-radius:var(--radius-sm); background:var(--bg); color:var(--ink); outline:none; transition:border-color .15s; }
+  .modal-fields input:focus { border-color:var(--accent); }
+  .modal-note { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink3); line-height:1.6; margin-bottom:16px; }
+  .modal-btns { display:flex; gap:8px; flex-wrap:wrap; }
+  .modal-btn { font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; padding:8px 16px; cursor:pointer; border-radius:var(--radius-sm); transition:all .15s; white-space:nowrap; }
+  .modal-btn.primary { background:var(--accent); color:#fff; border:2px solid var(--accent); }
+  .modal-btn.primary:hover { background:var(--accent-h); border-color:var(--accent-h); }
+  .modal-btn.secondary { background:transparent; color:var(--accent); border:2px solid var(--accent); }
+  .modal-btn.secondary:hover { background:var(--accent-bg); }
+  .modal-btn.ghost { background:transparent; color:var(--ink2); border:2px solid var(--border2); }
+  .modal-btn.ghost:hover { border-color:var(--accent); color:var(--accent); }
+  .modal-btn:disabled { opacity:.5; cursor:not-allowed; }
+
+  /* Step dots */
+  .modal-steps { display:flex; align-items:center; margin-bottom:22px; }
+  .modal-step { width:26px; height:26px; border-radius:50%; border:2px solid var(--border2); background:var(--card2); font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; color:var(--ink3); display:flex; align-items:center; justify-content:center; transition:all .2s; flex-shrink:0; }
+  .modal-step.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .modal-step.done { background:var(--done-bg); border-color:var(--done-bd); color:var(--c2); }
+  .modal-step-line { flex:1; height:2px; background:var(--border); margin:0 4px; }
+
+  /* Conflict box */
+  .conflict-box { background:var(--accent-bg); border:2px solid var(--accent); border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:14px; }
+  .conflict-box.hidden { display:none; }
+  .conflict-title { font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; color:var(--accent); margin-bottom:6px; }
+  .conflict-desc { font-size:13px; color:var(--ink2); margin-bottom:12px; line-height:1.5; }
+  .conflict-btns { display:flex; gap:8px; flex-wrap:wrap; }
+
+  /* Connected info */
+  .connected-info { background:var(--done-bg); border:1.5px solid var(--done-bd); border-radius:var(--radius-sm); padding:14px 16px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--c2); line-height:1.8; }
 
   .ph1 { color: var(--c1); border-color: var(--c1); }
   .ph2 { color: var(--c2); border-color: var(--c2); }
   .ph3 { color: var(--c3); border-color: var(--c3); }
   .ph4 { color: var(--c4); border-color: var(--c4); }
 
-  /* Supabase sync */
-  .sync-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:12px; padding:12px 18px; background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius); box-shadow:2px 2px 0 var(--border); }
-  .sync-status { font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink3); flex:1; min-width:120px; }
-  .sync-status.ok  { color:#1a6645; }
-  .sync-status.err { color:#8c1f1f; }
-  .sync-btn { font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; padding:7px 14px; cursor:pointer; border:2px solid var(--accent); border-radius:var(--radius-sm); background:var(--accent); color:#fff; transition:all .15s; white-space:nowrap; }
-  .sync-btn:hover { background:var(--accent-h); border-color:var(--accent-h); }
-  .sync-btn.secondary { background:transparent; color:var(--accent); }
-  .sync-btn.secondary:hover { background:var(--accent-bg); }
+  /* Headline card */
+  .headline-card { background: var(--accent-bg); border: 2px solid var(--accent); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 20px; }
+  .headline-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 6px; }
+  .headline-text { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--ink); }
 
-  /* Modal */
-  .modal-overlay { position:fixed; inset:0; background:rgba(43,36,16,.5); z-index:200; display:flex; align-items:center; justify-content:center; padding:20px; }
-  .modal-overlay.hidden { display:none; }
-  .modal { background:var(--card); border:2px solid var(--border2); border-radius:var(--radius); padding:28px 28px 24px; max-width:440px; width:100%; box-shadow:5px 5px 0 var(--border); }
-  .modal h3 { font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:600; margin-bottom:8px; }
-  .modal p  { font-size:13px; color:var(--ink2); line-height:1.6; margin-bottom:14px; }
-  .modal a  { color:var(--accent); }
-  .modal input { width:100%; font-family:'IBM Plex Mono',monospace; font-size:13px; padding:9px 12px; border:1.5px solid var(--border2); border-radius:var(--radius-sm); background:var(--bg); color:var(--ink); outline:none; margin-bottom:14px; }
-  .modal input:focus { border-color:var(--accent); }
-  .modal-btns { display:flex; gap:8px; flex-wrap:wrap; }
-  .modal-note { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink3); margin-top:12px; line-height:1.6; }
+  /* System 2 gauge */
+  .gauge-card { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 16px 18px; margin-bottom: 20px; box-shadow: 2px 2px 0 var(--border); }
+  .gauge-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+  .gauge-track { height: 10px; background: var(--card2); border-radius: 5px; overflow: hidden; margin-bottom: 6px; position: relative; }
+  .gauge-fill { height: 100%; background: linear-gradient(90deg, #3a2fa0, #d4821a); border-radius: 5px; width: 20%; }
+  .gauge-target { position: absolute; top: 0; height: 100%; width: 3px; background: #1a6645; left: 65%; }
+  .gauge-labels { display: flex; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink3); }
+  .gauge-note { font-size: 13px; color: var(--ink2); margin-top: 8px; }
+
+  /* Today's action banner */
+  .action-banner { background: var(--ink); color: var(--bg); border-radius: var(--radius); padding: 18px 22px; margin-bottom: 28px; }
+  .action-banner-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ink3); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 6px; }
+  .action-banner-text { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--bg); line-height: 1.5; }
+  .action-banner-sub { font-size: 13px; color: #b89a72; margin-top: 6px; }
 </style>
 </head>
 <body>
@@ -176,439 +319,787 @@
 
   <header class="header">
     <div class="header-left">
-      <p class="eyebrow">12-Week Learning Path</p>
-      <h1>AI Full Stack<br>Engineer Roadmap</h1>
-      <p class="subtitle">From LLM basics to shipping production AI agents. Built for AIML undergrads with Python + React experience.</p>
+      <p class="eyebrow">Personalized 6-Month Plan · AIML Student · Mumbai</p>
+      <h1>Your AI Career<br>Roadmap to ₹80K</h1>
+      <p class="subtitle">Built from your 15 answers. RAG + Agentic AI specialist track. 10–15 hrs/week. Everything is personalized — no generic advice.</p>
     </div>
     <div class="progress-card">
       <p class="prog-label">Overall progress</p>
-      <div class="prog-nums"><span id="done-count">0</span> <span>/ 12 weeks</span></div>
+      <div class="prog-nums"><span id="done-count">0</span> <span>/ 24 weeks</span></div>
       <div class="prog-track"><div class="prog-fill" id="overall-bar"></div></div>
       <p class="prog-pct" id="pct-text">0% complete</p>
     </div>
   </header>
 
-  <div id="roadmap"></div>
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="switchTab('plan', this)">📋 Your Plan</button>
+    <button class="nav-tab" onclick="switchTab('roadmap', this)">🗓 Week-by-Week</button>
+    <button class="nav-tab" onclick="switchTab('posts', this)">✍ LinkedIn Posts</button>
+    <button class="nav-tab" onclick="switchTab('outreach', this)">📨 Outreach</button>
+    <button class="nav-tab" onclick="switchTab('papers', this)">📄 Papers</button>
+    <button class="nav-tab" onclick="switchTab('resources', this)">🔗 Resources</button>
+  </nav>
 
-  <div class="all-res">
-    <div class="all-res-head"><h2 class="all-res-title">All free resources</h2></div>
-    <div class="week-filter-row" id="week-filters">
-      <button class="fbtn active" onclick="filterResources('all', this)">All</button>
+  <!-- ══ PLAN TAB ══ -->
+  <div class="view-panel active" id="tab-plan">
+
+    <div class="action-banner">
+      <div class="action-banner-label">⚡ Your homework — do this today, not tomorrow</div>
+      <div class="action-banner-text">Open LinkedIn → copy Post #1 from the LinkedIn tab → edit 2–3 lines → publish.</div>
+      <div class="action-banner-sub">That's it. First domino. The gap between you and ₹80K is 24 weeks of this.</div>
     </div>
-    <div class="filter-row" style="margin-bottom:14px">
-      <button class="fbtn active" onclick="filterType('all', this)">All types</button>
-      <button class="fbtn" onclick="filterType('video', this)">Video</button>
-      <button class="fbtn" onclick="filterType('course', this)">Course</button>
-      <button class="fbtn" onclick="filterType('docs', this)">Docs</button>
-      <button class="fbtn" onclick="filterType('repo', this)">Repo</button>
-      <button class="fbtn" onclick="filterType('article', this)">Article</button>
+
+    <div class="plan-intro">
+      <h2>Honest situation assessment</h2>
+      <p>You're a student with <strong>zero work experience</strong>, solid web dev skills (React, Node, Flask), and self-rated 1–2 across the ML stack. That's exactly where most people start. Here's what nobody tells you: your web dev background is a <strong>secret weapon</strong>. Most ML students can't build a frontend. You can ship things end-to-end. That matters enormously.</p>
+      <p>Your newsletter bot proves you can execute — not just learn. That's more than 80% of people asking for plans like this. Now we need to upgrade it from a Layer 3 system (LLM executes actions) to a proper 3-layer architecture: predict → decide → act. That's the ₹80K difference.</p>
+      <p>Your biggest risk is not knowledge gaps. It's "analysis paralysis" disguised as "I need to learn more first." You don't. You need to build more.</p>
     </div>
-    <div class="res-list" id="all-resources"></div>
+
+    <div class="info-grid">
+      <div class="info-tile"><div class="info-tile-label">Target role</div><div class="info-tile-value">AI/GenAI Engineer</div></div>
+      <div class="info-tile"><div class="info-tile-label">Target income</div><div class="info-tile-value">₹80K / month</div></div>
+      <div class="info-tile"><div class="info-tile-label">Timeline</div><div class="info-tile-value">24 weeks</div></div>
+      <div class="info-tile"><div class="info-tile-label">Weekly hours</div><div class="info-tile-value">10–15 hrs</div></div>
+      <div class="info-tile"><div class="info-tile-label">Focus areas</div><div class="info-tile-value">RAG + Agents</div></div>
+      <div class="info-tile"><div class="info-tile-label">Geography</div><div class="info-tile-value">India / Remote</div></div>
+    </div>
+
+    <div class="headline-card">
+      <div class="headline-label">🔤 Your new LinkedIn headline (replace it today)</div>
+      <div class="headline-text">Building RAG + Agentic AI Systems | AIML Student | Shipping AI that actually works end-to-end</div>
+    </div>
+
+    <div class="gauge-card">
+      <div class="gauge-label">System 1 → System 2 spectrum (your current position)</div>
+      <div class="gauge-track">
+        <div class="gauge-fill"></div>
+        <div class="gauge-target" title="₹80K jobs live here"></div>
+      </div>
+      <div class="gauge-labels"><span>System 1 only (Layer 3)</span><span>₹80K zone ↑</span><span>Full System 2</span></div>
+      <div class="gauge-note">You're at ~2/10. ₹80K jobs sit at 6–7/10. The green marker is your target. Your newsletter bot is Layer 3 (LLM executes). This plan gets you all three layers.</div>
+    </div>
+
+    <div class="skill-audit">
+      <div class="section-title">Skill value audit — your resume, run through the formula</div>
+
+      <div class="skill-row">
+        <div class="skill-row-top">
+          <span class="skill-name">Python</span>
+          <span class="skill-verdict verdict-low">LOW value</span>
+        </div>
+        <div class="skill-note">Table stakes. Literally everyone lists this. It's like a chef putting "knows how to use a knife" on their resume. Keep it, but never lead with it. It's a tool, not a differentiator.</div>
+      </div>
+
+      <div class="skill-row">
+        <div class="skill-row-top">
+          <span class="skill-name">Java, C++</span>
+          <span class="skill-verdict verdict-low">LOW value (for AI roles)</span>
+        </div>
+        <div class="skill-note">These are interviewing languages, not AI job-getters. Keep them on your resume but stop investing time here. Zero scarcity in the AI context.</div>
+      </div>
+
+      <div class="skill-row">
+        <div class="skill-row-top">
+          <span class="skill-name">React + Node.js + Flask</span>
+          <span class="skill-verdict verdict-high">MEDIUM-HIGH — your edge</span>
+        </div>
+        <div class="skill-note">Underrated. Most ML engineers can't build a frontend demo. You can ship full-stack AI apps. A GenAI engineer who also builds the interface? That's rare and valuable. Double down on this — it's your competitive advantage as a student.</div>
+      </div>
+
+      <div class="skill-row">
+        <div class="skill-row-top">
+          <span class="skill-name">HTML, CSS, JavaScript</span>
+          <span class="skill-verdict verdict-low">LOW — fold into full-stack</span>
+        </div>
+        <div class="skill-note">Don't list these separately. Fold them into "Full-Stack AI Application Development." Listing HTML on a resume in 2025 is noise, not signal.</div>
+      </div>
+
+      <div class="skill-row" style="border-color: var(--done-bd); background: var(--done-bg);">
+        <div class="skill-row-top">
+          <span class="skill-name">ADD: RAG System Design (end-to-end)</span>
+          <span class="skill-verdict verdict-high">HIGH — primary skill to build</span>
+        </div>
+        <div class="skill-note">Every company wants internal knowledge bases, document Q&A, customer support bots. Revenue: massive. Scarcity: high (most people call APIs, almost nobody designs proper RAG). This is your #1 skill to develop.</div>
+      </div>
+
+      <div class="skill-row" style="border-color: var(--done-bd); background: var(--done-bg);">
+        <div class="skill-row-top">
+          <span class="skill-name">ADD: Agentic AI with Verification Loops</span>
+          <span class="skill-verdict verdict-high">HIGH — what separates ₹5L from ₹20L+</span>
+        </div>
+        <div class="skill-note">The market is flooded with "I used LangChain" engineers. Almost nobody builds agents with proper decision + verification layers. This is the skill that turns your ₹80K target from a stretch goal into table stakes.</div>
+      </div>
+    </div>
+
+    <div class="milestones">
+      <div class="section-title">6-month milestones</div>
+      <div class="milestone-row">
+        <div class="milestone-month">Month 1</div>
+        <div class="milestone-text">LinkedIn headline overhauled. 4 posts published. Transformer paper read. Dead-simple RAG system built locally. Newsletter bot upgraded with Layer 2 decision logic. 500+ connection requests sent. Outreach started.</div>
+      </div>
+      <div class="milestone-row">
+        <div class="milestone-month">Month 2</div>
+        <div class="milestone-text">RAG system functional with evaluation metrics. Verification layer added to newsletter bot. 8 LinkedIn posts published. 1000+ connections sent, 50+ DMs sent. 8 papers read. First real conversations with people at target companies.</div>
+      </div>
+      <div class="milestone-row">
+        <div class="milestone-month">Month 3</div>
+        <div class="milestone-text">Project 1 (RAG system) deployed publicly. RAPTOR-style retrieval implemented. 12 LinkedIn posts. 1500+ outreach connections. 12 papers read. 3–5 real calls with target companies.</div>
+      </div>
+      <div class="milestone-row">
+        <div class="milestone-month">Month 4</div>
+        <div class="milestone-text">Project 2 (agentic system, all 3 layers) in progress. Strong opinions forming on production RAG. 16 LinkedIn posts. 2000+ outreach. Starting to get inbound interest from content.</div>
+      </div>
+      <div class="milestone-row">
+        <div class="milestone-month">Month 5</div>
+        <div class="milestone-text">Both projects deployed and documented on GitHub. Mock interviews happening. 20+ posts. 2500+ outreach. 5–10 real opportunities in pipeline (calls, freelance inquiries, interview processes).</div>
+      </div>
+      <div class="milestone-row">
+        <div class="milestone-month">Month 6</div>
+        <div class="milestone-text">2 production projects live on GitHub. 24+ LinkedIn posts published. 3000+ outreach messages sent. 12+ papers internalized. Offer(s) in hand or strong pipeline. ₹80K target within reach — likely exceeded.</div>
+      </div>
+    </div>
+
   </div>
 
-  <div class="save-bar">
-    <span class="save-bar-label">Local backup</span>
-    <button class="save-btn" onclick="exportProgress()">↓ Save JSON</button>
-    <button class="save-btn secondary" onclick="document.getElementById('import-input').click()">↑ Load JSON</button>
-    <input type="file" id="import-input" accept=".json" style="display:none" onchange="importProgress(event)">
-    <span class="save-bar-note">Download / upload progress file</span>
+  <!-- ══ ROADMAP TAB ══ -->
+  <div class="view-panel" id="tab-roadmap">
+    <div id="roadmap"></div>
+
+    <div style="margin-top:24px; padding:14px 18px; background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius); font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink3);">
+      ☁ Progress auto-saves locally and syncs to cloud on every change. Use the sync bar at the bottom to set up cloud sync.
+    </div>
   </div>
 
-  <div class="sync-row">
-    <span class="sync-status" id="sync-status">☁ Cloud sync: not set up</span>
-    <button class="sync-btn secondary" id="setup-btn" onclick="openSyncModal()">⚙ Setup sync</button>
-    <button class="sync-btn secondary" id="signout-btn" onclick="sbSignOut()" style="display:none">Sign out</button>
+  <!-- ══ LINKEDIN POSTS TAB ══ -->
+  <div class="view-panel" id="tab-posts">
+    <div class="plan-intro" style="margin-bottom:20px;">
+      <h2>Post 3–4x per week. These are actual drafts — not templates.</h2>
+      <p>Edit 2–3 lines to make each sound like you, then publish. Tap any card to expand and copy. Start with Post #1 today.</p>
+    </div>
+    <div class="posts-grid" id="posts-grid"></div>
   </div>
 
-  <footer><p>Progress auto-saved to browser — set up cloud sync to access from any device — ship the capstone</p></footer>
+  <!-- ══ OUTREACH TAB ══ -->
+  <div class="view-panel" id="tab-outreach">
+    <div class="plan-intro" style="margin-bottom:20px;">
+      <h2>The outreach machine</h2>
+      <p>You said "yes absolutely" to cold outreach. Good. Daily targets: <strong>25 LinkedIn connection requests</strong> + <strong>5 personalized DMs</strong>. Monthly volume: ~800 connections, ~150 DMs. Volume is the game — simple as that.</p>
+      <p><strong>Where to find targets:</strong> AI startups in India that raised seed/Series A in last 18 months (Crunchbase), US AI startups open to India remote (look for "remote" in job postings, DM founders not HR), CTOs at Indian SaaS companies building internal AI tools, AI consultants in India with 500+ followers (they subcontract).</p>
+    </div>
+    <div class="outreach-grid" id="outreach-grid"></div>
+  </div>
+
+  <!-- ══ PAPERS TAB ══ -->
+  <div class="view-panel" id="tab-papers">
+    <div class="plan-intro" style="margin-bottom:20px;">
+      <h2>12-week reading list — 1 paper per week</h2>
+      <p>For each paper: read abstract + introduction first. If you understand it, go deeper. If not, find a YouTube explanation first, then come back. The <strong>limitations section</strong> of every paper is a free roadmap of what gets built next — read it carefully.</p>
+    </div>
+    <div class="papers-list" id="papers-list"></div>
+  </div>
+
+  <!-- ══ RESOURCES TAB ══ -->
+  <div class="view-panel" id="tab-resources">
+    <div class="all-res">
+      <div class="all-res-head"><h2 class="all-res-title">All free resources</h2></div>
+      <div class="week-filter-row" id="week-filters">
+        <button class="fbtn active" onclick="filterResources('all', this)">All</button>
+      </div>
+      <div class="filter-row" style="margin-bottom:14px">
+        <button class="fbtn active" onclick="filterType('all', this)">All types</button>
+        <button class="fbtn" onclick="filterType('video', this)">Video</button>
+        <button class="fbtn" onclick="filterType('course', this)">Course</button>
+        <button class="fbtn" onclick="filterType('docs', this)">Docs</button>
+        <button class="fbtn" onclick="filterType('repo', this)">Repo</button>
+        <button class="fbtn" onclick="filterType('article', this)">Article</button>
+        <button class="fbtn" onclick="filterType('paper', this)">Paper</button>
+      </div>
+      <div class="res-list" id="all-resources"></div>
+    </div>
+  </div>
+
+  <!-- ── SYNC BAR ── -->
+  <div class="sync-bar" id="sync-bar">
+    <div class="sync-bar-left">
+      <div class="sync-indicator" id="sync-dot"></div>
+      <span class="sync-status-text" id="sync-status-text">Local only</span>
+      <span class="sync-last" id="sync-last"></span>
+    </div>
+    <div class="sync-bar-right">
+      <button class="sync-action-btn secondary" onclick="exportProgress()">↓ Export JSON</button>
+      <button class="sync-action-btn secondary" onclick="document.getElementById('import-input').click()">↑ Import JSON</button>
+      <input type="file" id="import-input" accept=".json" style="display:none" onchange="importProgress(event)">
+      <button class="sync-action-btn" id="sync-main-btn" onclick="openSyncModal()">☁ Set up sync</button>
+    </div>
+  </div>
+
+  <footer><p>Progress auto-saved to browser · cloud sync via your own Supabase · personalized by Second Brain Labs · now go build</p></footer>
 </div>
 
-<!-- Supabase sync modal -->
-<div class="modal-overlay hidden" id="sync-modal">
-  <div class="modal" style="max-width:480px">
-    <h3>☁ Cross-device sync setup</h3>
+<!-- ══ SYNC MODAL ══ -->
+<div class="modal-overlay hidden" id="sync-modal" onclick="handleOverlayClick(event)">
+  <div class="modal" id="sync-modal-box">
 
-    <!-- Step 1: Supabase config -->
-    <div id="modal-step-config">
-      <p>Uses a <strong>free Supabase project</strong> you own. One-time setup (~3 min).</p>
-      <p><strong>Step 1 of 2 — Create your Supabase project:</strong></p>
-      <ol style="font-size:13px;color:var(--ink2);line-height:2;padding-left:18px;margin-bottom:12px">
-        <li>Go to <a href="https://supabase.com" target="_blank">supabase.com</a> → <strong>Start your project</strong> (free)</li>
-        <li>New project → name it <em>ai-roadmap</em> → set a DB password → Create</li>
-        <li>Wait ~1 min for it to provision</li>
-        <li>Go to <strong>Project Settings → API</strong></li>
-        <li>Copy <strong>Project URL</strong> and the <strong>anon public</strong> key</li>
-        <li>Go to <strong>Table Editor → New table</strong> → name it <code>progress</code> → disable RLS → add two columns:<br>
-          <code style="font-size:11px">user_id text (primary key) &nbsp;|&nbsp; data jsonb</code>
-        </li>
-      </ol>
-      <input type="text"     id="sb-url"    placeholder="Project URL  (https://xxxx.supabase.co)"  autocomplete="off" />
-      <input type="text"     id="sb-anonkey" placeholder="anon public key  (eyJh…)"               autocomplete="off" />
-      <div class="modal-btns">
-        <button class="sync-btn" onclick="saveSbConfig()">Next →</button>
-        <button class="sync-btn secondary" onclick="closeSyncModal()">Cancel</button>
-      </div>
-      <p class="modal-note">Config stored only in this browser's localStorage. Supabase free tier: 500 MB DB, unlimited API calls — more than enough.</p>
+    <!-- Step indicator -->
+    <div class="modal-steps" id="modal-steps">
+      <div class="modal-step active" id="step-dot-1">1</div>
+      <div class="modal-step-line"></div>
+      <div class="modal-step" id="step-dot-2">2</div>
+      <div class="modal-step-line"></div>
+      <div class="modal-step" id="step-dot-3">3</div>
     </div>
 
-    <!-- Step 2: username / passphrase -->
-    <div id="modal-step-login" style="display:none">
-      <p><strong>Step 2 of 2 — Choose your sync identity</strong></p>
-      <p>Pick a username and passphrase. Enter the <strong>same pair on every device</strong> to share progress. They're hashed locally into a storage key — never sent to any auth server.</p>
-      <input type="text"     id="sb-username"   placeholder="Username  (e.g. arjun)" autocomplete="off" />
-      <input type="password" id="sb-passphrase" placeholder="Passphrase"             autocomplete="off" />
-      <div class="modal-btns">
-        <button class="sync-btn" onclick="sbSignIn()">Connect &amp; sync</button>
-        <button class="sync-btn secondary" onclick="showConfigStep()">← Back</button>
-        <button class="sync-btn secondary" onclick="closeSyncModal()">Cancel</button>
+    <!-- STEP 1: Supabase config -->
+    <div id="modal-s1">
+      <div class="modal-title">☁ Cloud sync setup</div>
+      <div class="modal-subtitle">Uses <strong>your own free Supabase project</strong> — your data never touches anyone else's server. One-time setup (~3 min).</div>
+
+      <div class="modal-section-label">Step 1 — Create your Supabase project</div>
+      <div class="modal-steps-list">
+        <div class="modal-step-item"><span class="step-num">1</span><span>Go to <a href="https://supabase.com" target="_blank">supabase.com</a> → <strong>Start your project</strong> (free tier)</span></div>
+        <div class="modal-step-item"><span class="step-num">2</span><span>New project → name it <code>ai-roadmap</code> → set a DB password → Create</span></div>
+        <div class="modal-step-item"><span class="step-num">3</span><span>Wait ~1 min for provisioning</span></div>
+        <div class="modal-step-item"><span class="step-num">4</span><span>Go to <strong>Project Settings → API</strong> → copy <strong>Project URL</strong> and <strong>anon public</strong> key</span></div>
+        <div class="modal-step-item"><span class="step-num">5</span><span>Go to <strong>SQL Editor</strong> → paste and run this:</span></div>
       </div>
-      <p class="modal-note">⚠ No password recovery — if you forget your passphrase you'll start a fresh record. Write it down.</p>
+      <div class="sql-block">CREATE TABLE IF NOT EXISTS progress (
+  user_id text PRIMARY KEY,
+  data    jsonb,
+  updated_at timestamptz DEFAULT now()
+);
+ALTER TABLE progress DISABLE ROW LEVEL SECURITY;</div>
+      <button class="copy-sql-btn" onclick="copySql()">Copy SQL</button>
+
+      <div class="modal-fields">
+        <label class="field-label">Project URL</label>
+        <input type="text" id="sb-url" placeholder="https://xxxxxxxxxxxx.supabase.co" autocomplete="off" />
+        <label class="field-label">Anon public key</label>
+        <input type="text" id="sb-anonkey" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9…" autocomplete="off" />
+      </div>
+      <div class="modal-note">⚠ Stored only in this browser's localStorage. Never sent anywhere except your own Supabase instance.</div>
+      <div class="modal-btns">
+        <button class="modal-btn primary" onclick="saveConfig()">Next →</button>
+        <button class="modal-btn ghost" onclick="closeSyncModal()">Cancel</button>
+      </div>
     </div>
+
+    <!-- STEP 2: Identity -->
+    <div id="modal-s2" style="display:none">
+      <div class="modal-title">Choose your sync identity</div>
+      <div class="modal-subtitle">Pick a username + passphrase. Use the <strong>exact same pair on every device</strong> to share progress. They're hashed locally — never sent to any auth server.</div>
+      <div class="modal-fields">
+        <label class="field-label">Username</label>
+        <input type="text" id="sb-username" placeholder="e.g. ayush_aiml" autocomplete="off" />
+        <label class="field-label">Passphrase</label>
+        <input type="password" id="sb-passphrase" placeholder="something memorable" autocomplete="off" />
+      </div>
+      <div class="conflict-box hidden" id="conflict-box">
+        <div class="conflict-title">⚠ Cloud data found</div>
+        <div class="conflict-desc" id="conflict-desc"></div>
+        <div class="conflict-btns">
+          <button class="modal-btn primary" onclick="resolveConflict('cloud')">Use cloud data</button>
+          <button class="modal-btn secondary" onclick="resolveConflict('local')">Keep local data</button>
+        </div>
+      </div>
+      <div class="modal-note">⚠ No password recovery — if you forget your passphrase you'll start fresh. Write it down.</div>
+      <div class="modal-btns">
+        <button class="modal-btn primary" id="connect-btn" onclick="connectSync()">Connect &amp; sync</button>
+        <button class="modal-btn ghost" onclick="showStep(1)">← Back</button>
+        <button class="modal-btn ghost" onclick="closeSyncModal()">Cancel</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Connected -->
+    <div id="modal-s3" style="display:none">
+      <div class="modal-title" style="color:var(--c2)">✓ Sync active</div>
+      <div class="modal-subtitle">Your progress is now syncing to your Supabase instance. Open this file on any device, enter the same username + passphrase, and your progress loads automatically.</div>
+      <div class="connected-info" id="connected-info"></div>
+      <div class="modal-btns" style="margin-top:20px">
+        <button class="modal-btn primary" onclick="closeSyncModal()">Done</button>
+        <button class="modal-btn ghost" onclick="signOut()">Sign out</button>
+      </div>
+    </div>
+
   </div>
-</div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+
 const phases = [
-  { id:1, cls:'ph1', label:"Phase 1", title:"AI Foundations & LLM Mastery",    weeks:[1,2,3]    },
-  { id:2, cls:'ph2', label:"Phase 2", title:"AI Agents & Agentic Systems",      weeks:[4,5,6]    },
-  { id:3, cls:'ph3', label:"Phase 3", title:"Full Stack AI Engineering",         weeks:[7,8,9]    },
-  { id:4, cls:'ph4', label:"Phase 4", title:"Portfolio & Job Readiness",         weeks:[10,11,12] },
+  { id:1, cls:'ph1', label:"Phase 1", title:"AI Foundations + RAG Basics",        weeks:[1,2,3,4,5,6]    },
+  { id:2, cls:'ph2', label:"Phase 2", title:"Agents + Verification Systems",       weeks:[7,8,9,10,11,12] },
+  { id:3, cls:'ph3', label:"Phase 3", title:"Production AI + Full Stack Deploy",   weeks:[13,14,15,16,17,18] },
+  { id:4, cls:'ph4', label:"Phase 4", title:"Portfolio + Job Readiness",           weeks:[19,20,21,22,23,24] },
 ];
 
 const weeks = [
-  { week:1, phase:1, title:"LLM Deep Dive", desc:"Understand how LLMs really work under the hood",
-    topics:["Transformer architecture","Tokenization & embeddings","Temperature, top-p, context windows","System prompts & prompt engineering"],
-    tools:["OpenAI API","Anthropic Claude API","Tiktoken","LangChain basics"],
-    project:"Build a smart prompt tester — compare outputs across models and settings",
+  { week:1, phase:1, title:"LLM Deep Dive", desc:"How AI actually thinks — under the hood",
+    topics:["How tokenization works","What embeddings capture","Context engineering vs prompt engineering","Why output quality = input context quality"],
+    tools:["OpenAI API","Anthropic Claude API","Tiktoken"],
+    project:"Watch 3Blue1Brown neural net series + read Attention Is All You Need (abstract + intro only)",
+    outreach:"Send 25 LinkedIn connections/day — no DMs yet. Just build the habit.",
     resources:[
-      {id:"r1-1",title:"Andrej Karpathy — Let's build GPT from scratch",type:"video",desc:"3-hour deep dive building a GPT in pure Python. Best intro to transformers that exists.",url:"https://www.youtube.com/watch?v=kCc8FmEb1nY"},
-      {id:"r1-2",title:"3Blue1Brown — Neural networks series",type:"video",desc:"Visual intuition for how neural networks and transformers work.",url:"https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi"},
-      {id:"r1-3",title:"Anthropic Claude API docs",type:"docs",desc:"Official docs for Claude tool use, system prompts, and API reference.",url:"https://docs.anthropic.com"},
-      {id:"r1-4",title:"OpenAI Cookbook",type:"repo",desc:"Practical notebooks: prompt engineering, embeddings, function calling.",url:"https://github.com/openai/openai-cookbook"},
-      {id:"r1-5",title:"Attention is All You Need (paper)",type:"article",desc:"The original transformer paper — worth skimming at minimum.",url:"https://arxiv.org/abs/1706.03762"},
+      {id:"r1-1",title:"3Blue1Brown — Neural networks series",type:"video",desc:"Visual intuition for how neural networks and transformers work. Best place to start.",url:"https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi"},
+      {id:"r1-2",title:"Andrej Karpathy — Let's build GPT from scratch",type:"video",desc:"3-hour deep dive building a GPT in pure Python. Best transformer intro that exists.",url:"https://www.youtube.com/watch?v=kCc8FmEb1nY"},
+      {id:"r1-3",title:"Attention is All You Need (2017)",type:"paper",desc:"The original transformer paper — read abstract + intro only for now. Skip the math.",url:"https://arxiv.org/abs/1706.03762"},
+      {id:"r1-4",title:"Anthropic Claude API docs",type:"docs",desc:"Official docs for Claude — tool use, system prompts, API reference.",url:"https://docs.anthropic.com"},
     ]},
-  { week:2, phase:1, title:"RAG & Vector Databases", desc:"Give LLMs long-term memory with retrieval",
-    topics:["Embeddings & semantic search","Chunking strategies","Vector stores (Pinecone, Chroma)","Retrieval-Augmented Generation pipeline"],
-    tools:["LangChain","Chroma / Pinecone","OpenAI Embeddings","FAISS"],
-    project:"Build a RAG chatbot over your own PDF documents",
+  { week:2, phase:1, title:"Overhaul LinkedIn", desc:"Visibility before ability — make yourself findable",
+    topics:["Rewrite headline and about section","Understand what recruiters search for","Profile optimization for AI roles","Publishing your first post"],
+    tools:["LinkedIn","Canva (banner)"],
+    project:"Publish Post #1 (your origin story). Overhaul your entire LinkedIn profile using the new headline.",
+    outreach:"25 connections/day + start 5 DMs/day using Template 1. Copy-paste, then personalize one line.",
     resources:[
-      {id:"r2-1",title:"DeepLearning.AI — LangChain Chat with Your Data",type:"course",desc:"Short course by Harrison Chase. Covers RAG, chunking, retrieval end-to-end.",url:"https://www.deeplearning.ai/short-courses/langchain-chat-with-your-data/"},
-      {id:"r2-2",title:"LangChain RAG documentation",type:"docs",desc:"Official guide to building RAG pipelines with LCEL and retrievers.",url:"https://python.langchain.com/docs/tutorials/rag/"},
-      {id:"r2-3",title:"Chroma getting started guide",type:"docs",desc:"Free local vector database — easiest to get running for RAG projects.",url:"https://docs.trychroma.com/getting-started"},
-      {id:"r2-4",title:"Pinecone learning center",type:"course",desc:"Free courses on vector search fundamentals and building RAG apps.",url:"https://www.pinecone.io/learn/"},
-      {id:"r2-5",title:"Chunking strategies for RAG (Pinecone blog)",type:"article",desc:"Practical guide to fixed-size, semantic, and recursive chunking.",url:"https://www.pinecone.io/learn/chunking-strategies/"},
+      {id:"r2-1",title:"LinkedIn profile optimization guide (Austin Belcak)",type:"article",desc:"Data-driven advice on LinkedIn profile sections that actually get views.",url:"https://cultivatedculture.com/linkedin-profile/"},
+      {id:"r2-2",title:"Pinecone — What are Vector Databases?",type:"article",desc:"Clearest explanation of embeddings and vector search — read this week.",url:"https://www.pinecone.io/learn/vector-database/"},
     ]},
-  { week:3, phase:1, title:"Fine-tuning & Evaluation", desc:"Customise models and measure their quality",
-    topics:["When to fine-tune vs prompt","LoRA / PEFT concepts","Dataset preparation","LLM evaluation metrics (BLEU, ROUGE)"],
-    tools:["Hugging Face Transformers","PEFT library","Weights & Biases","LangSmith"],
-    project:"Fine-tune a small model on a custom Q&A dataset and evaluate it",
+  { week:3, phase:1, title:"Build Your First RAG", desc:"Give LLMs memory — your first real AI system",
+    topics:["Embeddings and semantic search","Chunking strategies","ChromaDB as a local vector store","Basic RAG pipeline end-to-end"],
+    tools:["ChromaDB","LangChain","OpenAI Embeddings","Python"],
+    project:"Build dead-simple RAG: embed 5 PDFs → store in ChromaDB → query with a question. Ship it.",
+    outreach:"25 connections/day, 5 DMs/day. Publish Post #2 this week.",
     resources:[
-      {id:"r3-1",title:"Hugging Face NLP Course",type:"course",desc:"Complete course covering transformers, fine-tuning with PEFT/LoRA, and deployment.",url:"https://huggingface.co/learn/nlp-course/chapter1/1"},
-      {id:"r3-2",title:"DeepLearning.AI — Finetuning LLMs",type:"course",desc:"Short course on when and how to fine-tune, data prep, and LoRA.",url:"https://www.deeplearning.ai/short-courses/finetuning-large-language-models/"},
-      {id:"r3-3",title:"Weights & Biases free courses",type:"course",desc:"LLM evaluation, MLOps, and experiment tracking — all free.",url:"https://www.wandb.courses/"},
-      {id:"r3-4",title:"LoRA paper (Hu et al. 2021)",type:"article",desc:"The foundational paper on Low-Rank Adaptation — readable even for beginners.",url:"https://arxiv.org/abs/2106.09685"},
-      {id:"r3-5",title:"LangSmith evaluation guide",type:"docs",desc:"Free tier for tracing and evaluating LLM outputs in your projects.",url:"https://docs.smith.langchain.com/"},
+      {id:"r3-1",title:"DeepLearning.AI — LangChain Chat with Your Data",type:"course",desc:"Short course by Harrison Chase. Covers RAG, chunking, retrieval end-to-end. Free.",url:"https://www.deeplearning.ai/short-courses/langchain-chat-with-your-data/"},
+      {id:"r3-2",title:"Chroma getting started guide",type:"docs",desc:"Free local vector DB — easiest to run locally for RAG projects.",url:"https://docs.trychroma.com/getting-started"},
+      {id:"r3-3",title:"Chunking strategies for RAG (Pinecone blog)",type:"article",desc:"Practical guide to fixed-size, semantic, and recursive chunking.",url:"https://www.pinecone.io/learn/chunking-strategies/"},
+      {id:"r3-4",title:"BERT paper (Devlin et al. 2018)",type:"paper",desc:"Embedding models descend from BERT. Read abstract + section 3 only.",url:"https://arxiv.org/abs/1810.04805"},
     ]},
-  { week:4, phase:2, title:"AI Agent Fundamentals", desc:"Understand how agents reason, plan, and act",
-    topics:["ReAct pattern (Reason + Act)","Tool use & function calling","Agent memory types","Single vs multi-agent systems"],
+  { week:4, phase:1, title:"Upgrade Your Newsletter Bot", desc:"Add Layer 2 decision logic to your project",
+    topics:["The 3-layer system: predict → decide → act","Adding relevance scoring to your bot","Confidence thresholds as decision logic","What makes Layer 2 valuable"],
+    tools:["Python","OpenAI API","Your newsletter bot codebase"],
+    project:"Upgrade newsletter bot: add a relevance scoring step that decides WHICH articles make the cut. This is Layer 2.",
+    outreach:"25 connections/day, 5 DMs/day. Publish Post #3 (contrarian opinion) this week.",
+    resources:[
+      {id:"r4-1",title:"Original RAG paper — Lewis et al. 2020",type:"paper",desc:"The foundational RAG paper. Read the full thing — it's worth the time. Read limitations carefully.",url:"https://arxiv.org/abs/2005.11401"},
+      {id:"r4-2",title:"LangChain RAG documentation",type:"docs",desc:"Official guide to building RAG pipelines with LCEL and retrievers.",url:"https://python.langchain.com/docs/tutorials/rag/"},
+    ]},
+  { week:5, phase:1, title:"Context Engineering", desc:"The skill that actually determines output quality",
+    topics:["Context engineering vs prompt engineering","Why 'the speaking IS the thinking'","System prompt design patterns","Few-shot examples in context"],
+    tools:["OpenAI API","Anthropic Claude API","LangSmith (free tier)"],
+    project:"Refactor your RAG system — test 3 different chunking strategies and compare output quality. Document results.",
+    outreach:"25 connections/day, 5 DMs/day. Publish Post #4 (build-in-public: newsletter bot).",
+    resources:[
+      {id:"r5-1",title:"Pinecone learning center",type:"course",desc:"Free courses on vector search fundamentals and building RAG apps.",url:"https://www.pinecone.io/learn/"},
+      {id:"r5-2",title:"Dense Passage Retrieval paper (Karpukhin 2020)",type:"paper",desc:"Retrieval quality is the bottleneck in RAG. This paper explains how to think about it.",url:"https://arxiv.org/abs/2004.04906"},
+      {id:"r5-3",title:"LangSmith quickstart",type:"docs",desc:"Trace every LLM call, evaluate outputs, and debug agents for free.",url:"https://docs.smith.langchain.com/tutorials/Developers/quick_start"},
+    ]},
+  { week:6, phase:1, title:"RAG Evaluation Basics", desc:"How do you know your RAG system actually works?",
+    topics:["Retrieval quality metrics","How to evaluate RAG without ground truth","LLM-as-evaluator patterns","Building a basic eval script in Python"],
+    tools:["LangSmith","Python","pandas"],
+    project:"Build an evaluation script: score your RAG system's retrieval quality on 10 test questions.",
+    outreach:"25 connections/day, 5 DMs/day. Publish Post #5 (RAG explained simply).",
+    resources:[
+      {id:"r6-1",title:"Weights & Biases — LLM evaluation course",type:"course",desc:"Free course on evaluating LLM outputs — directly relevant to your RAG evaluation work.",url:"https://www.wandb.courses/"},
+      {id:"r6-2",title:"Chain-of-Thought prompting paper (Wei et al. 2022)",type:"paper",desc:"Understand WHY chain-of-thought works — tells you how to design better verification steps.",url:"https://arxiv.org/abs/2201.11903"},
+    ]},
+  { week:7, phase:2, title:"Agent Fundamentals", desc:"Understand how agents reason, plan, and act",
+    topics:["ReAct pattern: Reason + Act","Tool use and function calling","Agent memory types","Single vs multi-agent systems"],
     tools:["LangChain Agents","OpenAI function calling","Claude tool use API"],
-    project:"Build a research agent that searches the web and summarises findings",
+    project:"Build a basic research agent that searches the web and summarizes findings using ReAct pattern.",
+    outreach:"25 connections/day, 5 DMs/day. Publish Post #6 (opinion post).",
     resources:[
-      {id:"r4-1",title:"DeepLearning.AI — AI Agents in LangGraph",type:"course",desc:"Official short course on building agents with LangGraph — directly relevant.",url:"https://www.deeplearning.ai/short-courses/ai-agents-in-langgraph/"},
-      {id:"r4-2",title:"ReAct: Synergizing Reasoning and Acting (paper)",type:"article",desc:"The paper that defined the ReAct pattern used in most agents today.",url:"https://arxiv.org/abs/2210.03629"},
-      {id:"r4-3",title:"Anthropic tool use documentation",type:"docs",desc:"How to implement function calling with Claude API — includes examples.",url:"https://docs.anthropic.com/en/docs/build-with-claude/tool-use"},
-      {id:"r4-4",title:"LangChain agents conceptual guide",type:"docs",desc:"Covers agent types, memory, and tool binding in LangChain.",url:"https://python.langchain.com/docs/concepts/agents/"},
-      {id:"r4-5",title:"Lilian Weng — LLM-powered autonomous agents",type:"article",desc:"Deep technical overview of agent memory, planning, and tool use patterns.",url:"https://lilianweng.github.io/posts/2023-06-23-agent/"},
+      {id:"r7-1",title:"DeepLearning.AI — AI Agents in LangGraph",type:"course",desc:"Official short course on building agents with LangGraph — directly relevant.",url:"https://www.deeplearning.ai/short-courses/ai-agents-in-langgraph/"},
+      {id:"r7-2",title:"ReAct paper (Yao et al. 2022)",type:"paper",desc:"The paper that defined ReAct — read the full thing + limitations carefully.",url:"https://arxiv.org/abs/2210.03629"},
+      {id:"r7-3",title:"Anthropic tool use documentation",type:"docs",desc:"How to implement function calling with Claude API — includes practical examples.",url:"https://docs.anthropic.com/en/docs/build-with-claude/tool-use"},
+      {id:"r7-4",title:"Lilian Weng — LLM-powered autonomous agents",type:"article",desc:"Deep technical overview of agent memory, planning, and tool use patterns.",url:"https://lilianweng.github.io/posts/2023-06-23-agent/"},
     ]},
-  { week:5, phase:2, title:"Multi-Agent Orchestration", desc:"Coordinate multiple specialised AI agents",
+  { week:8, phase:2, title:"Add Verification to Your Bot", desc:"Upgrade from Layer 3 to all 3 layers",
+    topics:["Self-verification patterns in agents","Checking outputs before acting","Confidence thresholds for agent decisions","Why unverified agents fail in production"],
+    tools:["Your newsletter bot","LangChain","Python"],
+    project:"Add verification step to newsletter bot: agent checks if its own summary actually matches the source article before sending.",
+    outreach:"25 connections/day, 5 DMs/day. Publish Post #7 (agents explained).",
+    resources:[
+      {id:"r8-1",title:"Toolformer paper (Schick et al. 2023)",type:"paper",desc:"How LLMs decide when and how to use tools — directly relevant to your agent architecture.",url:"https://arxiv.org/abs/2302.04761"},
+      {id:"r8-2",title:"Anthropic — Building effective agents",type:"article",desc:"Anthropic's own thinking on building reliable agents — essential reading.",url:"https://www.anthropic.com/research/building-effective-agents"},
+    ]},
+  { week:9, phase:2, title:"Build Your Arxiv Digest Agent", desc:"A tool that also becomes a portfolio piece",
+    topics:["Arxiv API integration","Structured summarization prompts","Daily digest automation","Documenting builds publicly"],
+    tools:["Arxiv API","Python","cron / scheduler"],
+    project:"Build the morning Arxiv digest agent: pulls 3 papers/day, gives 2-paragraph summaries. Document building it and post about it.",
+    outreach:"25 connections/day, 5 DMs/day. Publish Post #8 (industry observation).",
+    resources:[
+      {id:"r9-1",title:"Arxiv API documentation",type:"docs",desc:"Free API for querying Arxiv papers by category, date, and keyword.",url:"https://info.arxiv.org/help/api/index.html"},
+      {id:"r9-2",title:"Self-RAG paper (Asai et al. 2023)",type:"paper",desc:"RAG where the model critiques its own retrievals before using them. Future of RAG.",url:"https://arxiv.org/abs/2310.11511"},
+    ]},
+  { week:10, phase:2, title:"HyDE + Advanced Retrieval", desc:"Beyond naive similarity search",
+    topics:["HyDE: Hypothetical Document Embeddings","Why naive RAG fails on complex queries","Multi-query retrieval","Comparing retrieval strategies"],
+    tools:["LangChain","ChromaDB / Pinecone","Python"],
+    project:"Implement HyDE in your RAG system and compare retrieval quality to naive RAG. Write a post about the results.",
+    outreach:"25 connections/day, 5 DMs/day. Publish Post #9.",
+    resources:[
+      {id:"r10-1",title:"HyDE paper (Gao et al. 2022)",type:"paper",desc:"Advanced retrieval technique that dramatically improves RAG quality. Almost nobody at tutorial-level knows this.",url:"https://arxiv.org/abs/2212.10496"},
+      {id:"r10-2",title:"LangChain agents conceptual guide",type:"docs",desc:"Covers agent types, memory, and tool binding in LangChain.",url:"https://python.langchain.com/docs/concepts/agents/"},
+    ]},
+  { week:11, phase:2, title:"Multi-Agent Orchestration", desc:"Coordinate multiple specialized AI agents",
     topics:["Supervisor/worker patterns","Agent communication protocols","State management in pipelines","Retry and fallback logic"],
-    tools:["LangGraph","CrewAI","AutoGen","Redis for state"],
-    project:"Build a content pipeline: researcher + writer + editor agents",
+    tools:["LangGraph","CrewAI","Redis for state"],
+    project:"Build a content pipeline using your newsletter bot as base: researcher agent + writer agent + editor agent.",
+    outreach:"25 connections/day, 5 DMs/day. Publish Post #10.",
     resources:[
-      {id:"r5-1",title:"LangGraph documentation & tutorials",type:"docs",desc:"Official docs for building stateful multi-agent workflows with graphs.",url:"https://langchain-ai.github.io/langgraph/"},
-      {id:"r5-2",title:"CrewAI documentation",type:"docs",desc:"Free framework for role-based multi-agent crews — great for pipelines.",url:"https://docs.crewai.com/"},
-      {id:"r5-3",title:"DeepLearning.AI — Multi AI Agent Systems",type:"course",desc:"Short course by CrewAI covering agent roles and task delegation.",url:"https://www.deeplearning.ai/short-courses/multi-ai-agent-systems-with-crewai/"},
-      {id:"r5-4",title:"AutoGen documentation (Microsoft)",type:"docs",desc:"Open-source framework for conversational multi-agent systems.",url:"https://microsoft.github.io/autogen/"},
-      {id:"r5-5",title:"LangGraph how-to guides (GitHub)",type:"repo",desc:"Practical notebooks on supervisor patterns, parallel agents, and more.",url:"https://github.com/langchain-ai/langgraph/tree/main/examples"},
+      {id:"r11-1",title:"LangGraph documentation & tutorials",type:"docs",desc:"Official docs for building stateful multi-agent workflows.",url:"https://langchain-ai.github.io/langgraph/"},
+      {id:"r11-2",title:"DeepLearning.AI — Multi AI Agent Systems with CrewAI",type:"course",desc:"Short course covering agent roles and task delegation.",url:"https://www.deeplearning.ai/short-courses/multi-ai-agent-systems-with-crewai/"},
+      {id:"r11-3",title:"LLM-as-a-Judge paper (Zheng et al. 2023)",type:"paper",desc:"How to evaluate whether your RAG system is actually working. Evaluation is the #1 production problem.",url:"https://arxiv.org/abs/2306.05685"},
     ]},
-  { week:6, phase:2, title:"Real-World Agent Patterns", desc:"Production patterns used in actual AI products",
-    topics:["Structured output (JSON mode)","Error handling & guardrails","Human-in-the-loop","MCP (Model Context Protocol)"],
-    tools:["Instructor library","Guardrails AI","LangGraph interrupt","Anthropic MCP"],
-    project:"Build an agent with human approval checkpoints and structured outputs",
+  { week:12, phase:2, title:"Real-World Agent Patterns", desc:"Production patterns used in actual AI products",
+    topics:["Structured outputs with Pydantic","Error handling and guardrails","Human-in-the-loop checkpoints","MCP: Model Context Protocol"],
+    tools:["Instructor library","Guardrails AI","LangGraph","Anthropic MCP"],
+    project:"Rebuild one of your agents with: structured JSON outputs, retry logic on failure, and a human approval checkpoint.",
+    outreach:"25 connections/day, 5 DMs/day. Target India startup CTOs specifically this week.",
     resources:[
-      {id:"r6-1",title:"Instructor library documentation",type:"docs",desc:"Best library for structured outputs (Pydantic) from any LLM — free.",url:"https://python.useinstructor.com/"},
-      {id:"r6-2",title:"Guardrails AI documentation",type:"docs",desc:"Add validation, retry logic, and safety checks to LLM outputs.",url:"https://www.guardrailsai.com/docs"},
-      {id:"r6-3",title:"Anthropic MCP specification",type:"docs",desc:"Model Context Protocol spec — the new standard for connecting agents to tools.",url:"https://modelcontextprotocol.io/introduction"},
-      {id:"r6-4",title:"LangGraph human-in-the-loop guide",type:"docs",desc:"How to add breakpoints and approval steps to your agent graph.",url:"https://langchain-ai.github.io/langgraph/concepts/human_in_the_loop/"},
-      {id:"r6-5",title:"Anthropic's guide to building effective agents",type:"article",desc:"Anthropic's own thinking on building reliable agents — essential reading.",url:"https://www.anthropic.com/research/building-effective-agents"},
+      {id:"r12-1",title:"Instructor library documentation",type:"docs",desc:"Best library for structured outputs (Pydantic) from any LLM.",url:"https://python.useinstructor.com/"},
+      {id:"r12-2",title:"Anthropic MCP specification",type:"docs",desc:"Model Context Protocol — the new standard for connecting agents to tools.",url:"https://modelcontextprotocol.io/introduction"},
+      {id:"r12-3",title:"Cognitive Architectures for Language Agents (Sumers 2023)",type:"paper",desc:"Most comprehensive survey of agent system design. Sections 1–3 + figure 1.",url:"https://arxiv.org/abs/2309.02427"},
     ]},
-  { week:7, phase:3, title:"Backend for AI Apps", desc:"Node.js/Python backends powering AI features",
-    topics:["Streaming responses (SSE)","Async job queues for long tasks","Auth and API key management","Rate limiting & cost control"],
-    tools:["Node.js / FastAPI","BullMQ / Celery","Redis","Supabase"],
-    project:"Build a streaming chat API with token usage tracking and user auth",
+  { week:13, phase:3, title:"Backend for AI Apps", desc:"Node.js/Python backends powering AI features",
+    topics:["Streaming responses (SSE)","Async job queues for long AI tasks","Auth and API key management","Rate limiting and cost control"],
+    tools:["FastAPI","BullMQ / Celery","Redis","Supabase"],
+    project:"Build a streaming chat API with token usage tracking. Integrate your RAG system into it.",
+    outreach:"25 connections/day, 5 DMs/day. Send Template 2 (insight messages) to 5 warm leads.",
     resources:[
-      {id:"r7-1",title:"FastAPI official tutorial",type:"docs",desc:"Complete tutorial from basics to async endpoints and background tasks.",url:"https://fastapi.tiangolo.com/tutorial/"},
-      {id:"r7-2",title:"Node.js streams documentation",type:"docs",desc:"Official guide to streaming — essential for Server-Sent Events.",url:"https://nodejs.org/en/learn/modules/backpressuring-in-streams"},
-      {id:"r7-3",title:"BullMQ documentation",type:"docs",desc:"Job queue for Node.js — free, Redis-backed, great for async AI tasks.",url:"https://docs.bullmq.io/"},
-      {id:"r7-4",title:"Supabase documentation",type:"docs",desc:"Free Postgres + auth + realtime — perfect backend for AI apps.",url:"https://supabase.com/docs"},
-      {id:"r7-5",title:"Fireship — SSE crash course (YouTube)",type:"video",desc:"10-minute intro to Server-Sent Events for streaming LLM responses.",url:"https://www.youtube.com/watch?v=4HlNv1qpZFY"},
+      {id:"r13-1",title:"FastAPI official tutorial",type:"docs",desc:"Complete tutorial from basics to async endpoints and background tasks.",url:"https://fastapi.tiangolo.com/tutorial/"},
+      {id:"r13-2",title:"Supabase documentation",type:"docs",desc:"Free Postgres + auth + realtime — perfect backend for AI apps.",url:"https://supabase.com/docs"},
+      {id:"r13-3",title:"RAPTOR paper (Sarthi et al. 2024)",type:"paper",desc:"Hierarchical retrieval — current frontier of RAG. Implement this and you're in the top 1%.",url:"https://arxiv.org/abs/2401.18059"},
     ]},
-  { week:8, phase:3, title:"AI-Powered React Frontend", desc:"Build the UI layer for AI products",
-    topics:["Streaming chat UI with React","Skeleton states & loading UX","Markdown rendering from LLM","Voice input integration"],
-    tools:["React","Vercel AI SDK","shadcn/ui","Web Speech API"],
-    project:"Build a full ChatGPT-like UI with streaming, history, and code highlighting",
+  { week:14, phase:3, title:"AI-Powered React Frontend", desc:"Build the UI layer for AI products — your edge",
+    topics:["Streaming chat UI with React","Skeleton states and loading UX","Markdown rendering from LLM","You already know React — this is your superpower"],
+    tools:["React","Vercel AI SDK","shadcn/ui","Next.js"],
+    project:"Build a full chat UI with streaming, conversation history, and code highlighting. This is your demo layer.",
+    outreach:"25 connections/day, 5 DMs/day. Design Project 2 architecture this week.",
     resources:[
-      {id:"r8-1",title:"Vercel AI SDK documentation",type:"docs",desc:"Best library for streaming chat UIs in React/Next.js — free and open source.",url:"https://sdk.vercel.ai/docs"},
-      {id:"r8-2",title:"shadcn/ui component library",type:"docs",desc:"Free React component library used by most modern AI apps.",url:"https://ui.shadcn.com/"},
-      {id:"r8-3",title:"Next.js App Router tutorial",type:"course",desc:"Official Next.js tutorial covering app router, server components, API routes.",url:"https://nextjs.org/learn"},
-      {id:"r8-4",title:"Vercel AI SDK chatbot template (GitHub)",type:"repo",desc:"Open source Next.js chat template with streaming, history, and auth.",url:"https://github.com/vercel/ai-chatbot"},
-      {id:"r8-5",title:"React docs — modern patterns",type:"docs",desc:"Modern React patterns for managing streaming state in AI apps.",url:"https://react.dev/learn"},
+      {id:"r14-1",title:"Vercel AI SDK documentation",type:"docs",desc:"Best library for streaming chat UIs in React/Next.js — free and open source.",url:"https://sdk.vercel.ai/docs"},
+      {id:"r14-2",title:"shadcn/ui component library",type:"docs",desc:"Free React component library used by most modern AI apps.",url:"https://ui.shadcn.com/"},
+      {id:"r14-3",title:"Vercel AI SDK chatbot template",type:"repo",desc:"Open source Next.js chat template with streaming, history, and auth.",url:"https://github.com/vercel/ai-chatbot"},
     ]},
-  { week:9, phase:3, title:"Deployment & Observability", desc:"Ship AI apps and monitor them in production",
-    topics:["Docker + cloud deployment","LLM observability & tracing","Prompt versioning","A/B testing prompts"],
-    tools:["Docker / Railway / Render","LangSmith / Helicone","PostHog","GitHub Actions"],
-    project:"Deploy your Week 8 app with full LangSmith tracing and a CI/CD pipeline",
+  { week:15, phase:3, title:"RAPTOR RAG Implementation", desc:"The upgrade that puts you in the top 1% of RAG engineers",
+    topics:["Hierarchical tree-organized retrieval","Why flat RAG fails on complex documents","Recursive abstractive summarization","Implementing RAPTOR in Python"],
+    tools:["Python","ChromaDB","OpenAI Embeddings"],
+    project:"Implement RAPTOR-style retrieval in your RAG system. Document the architecture. Post about it.",
+    outreach:"25 connections/day, follow up with Template 3 on cold leads.",
     resources:[
-      {id:"r9-1",title:"Docker getting started (official)",type:"docs",desc:"Free official Docker tutorial — containerise your AI app in a day.",url:"https://docs.docker.com/get-started/"},
-      {id:"r9-2",title:"Railway free tier docs",type:"docs",desc:"Easiest way to deploy Docker apps for free with a hobby plan.",url:"https://docs.railway.app/"},
-      {id:"r9-3",title:"LangSmith quickstart",type:"docs",desc:"Trace every LLM call, evaluate outputs, and debug agents for free.",url:"https://docs.smith.langchain.com/tutorials/Developers/quick_start"},
-      {id:"r9-4",title:"Helicone free tier",type:"docs",desc:"LLM observability — log requests, track costs, monitor latency.",url:"https://docs.helicone.ai/getting-started/quick-start"},
-      {id:"r9-5",title:"GitHub Actions documentation",type:"docs",desc:"Set up CI/CD pipelines to auto-deploy your AI app on every push.",url:"https://docs.github.com/en/actions"},
+      {id:"r15-1",title:"RAPTOR paper (Sarthi et al. 2024)",type:"paper",desc:"Read the full paper. The GitHub implementation is also available — study it.",url:"https://arxiv.org/abs/2401.18059"},
+      {id:"r15-2",title:"System Design Primer (GitHub)",type:"repo",desc:"System design patterns — learn ML pipeline architecture patterns.",url:"https://github.com/donnemartin/system-design-primer"},
     ]},
-  { week:10, phase:4, title:"Capstone Project — Week 1", desc:"Build a production-quality AI agent app",
-    topics:["Define a real problem to solve","Full stack architecture planning","Backend + agent pipeline","Auth, payments (optional)"],
-    tools:["Full stack of your choice","Stripe (optional)","Supabase","Vercel"],
-    project:"Start your capstone: an AI-powered SaaS tool or agent product",
+  { week:16, phase:3, title:"Start Project 2 — Agentic System", desc:"3-layer architecture: predict, decide, act",
+    topics:["Define a real problem to solve","ML prediction layer design","Business logic decision layer","LLM action layer"],
+    tools:["Full stack: Python + React + FastAPI","LangGraph","Supabase"],
+    project:"Start Project 2: an agentic AI tool with all 3 layers. Define the problem, architecture, and prediction layer.",
+    outreach:"25 connections/day, 5 DMs/day. Start targeting US-remote-friendly AI startups.",
     resources:[
-      {id:"r10-1",title:"roadmap.sh — AI engineer roadmap",type:"article",desc:"Community-maintained roadmap with skill gaps and interview topics for AI roles.",url:"https://roadmap.sh/ai-engineer"},
-      {id:"r10-2",title:"System Design Primer (GitHub)",type:"repo",desc:"System design patterns including ML pipelines and LLM serving architectures.",url:"https://github.com/donnemartin/system-design-primer"},
-      {id:"r10-3",title:"Neetcode.io",type:"course",desc:"DSA for coding interviews — do the top 75 list minimum.",url:"https://neetcode.io/"},
-      {id:"r10-4",title:"Excalidraw",type:"docs",desc:"Free whiteboard for system design interviews — practice drawing architectures.",url:"https://excalidraw.com/"},
-      {id:"r10-5",title:"How to write a great README (GitHub guide)",type:"article",desc:"Your README is the first thing recruiters see on your projects.",url:"https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes"},
+      {id:"r16-1",title:"CrewAI documentation",type:"docs",desc:"Free framework for role-based multi-agent crews — great for complex pipelines.",url:"https://docs.crewai.com/"},
+      {id:"r16-2",title:"roadmap.sh — AI engineer roadmap",type:"article",desc:"Community-maintained skill map with interview topics for AI roles.",url:"https://roadmap.sh/ai-engineer"},
     ]},
-  { week:11, phase:4, title:"Capstone Project — Week 2", desc:"Polish, test, and deploy your capstone",
-    topics:["End-to-end testing","UX polish and edge cases","README and documentation","Deploy to production"],
-    tools:["Playwright / Cypress","Vercel / Render","GitHub Pages","Loom"],
-    project:"Launch capstone publicly with a live demo and GitHub repo",
+  { week:17, phase:3, title:"Deploy Project 1 Publicly", desc:"Ship your RAG system — make it real",
+    topics:["Docker basics for AI apps","Railway / Render free deployment","LLM observability in production","README that sells your work"],
+    tools:["Docker","Railway (free tier)","LangSmith","GitHub"],
+    project:"Deploy your RAG system publicly with a live URL. Full LangSmith tracing enabled. GitHub repo with a great README.",
+    outreach:"25 connections/day. Reach out to 5 AI consultants in India for intro calls this week.",
     resources:[
-      {id:"r11-1",title:"Playwright documentation",type:"docs",desc:"Best end-to-end testing framework for web apps — free and open source.",url:"https://playwright.dev/docs/intro"},
-      {id:"r11-2",title:"Vercel deployment guide",type:"docs",desc:"Deploy Next.js and React apps for free with Vercel's hobby tier.",url:"https://vercel.com/docs"},
-      {id:"r11-3",title:"How to write good commit messages",type:"article",desc:"Clean git history matters for job applications and code reviews.",url:"https://cbea.ms/git-commit/"},
-      {id:"r11-4",title:"Product Hunt launch guide",type:"article",desc:"How to launch your AI project publicly and get early users.",url:"https://blog.producthunt.com/how-to-launch-on-product-hunt-7c1843e06399"},
-      {id:"r11-5",title:"Loom (free screen recording)",type:"docs",desc:"Record a demo video of your project for your portfolio.",url:"https://www.loom.com/"},
+      {id:"r17-1",title:"Railway free tier docs",type:"docs",desc:"Easiest way to deploy Docker apps for free.",url:"https://docs.railway.app/"},
+      {id:"r17-2",title:"Docker getting started (official)",type:"docs",desc:"Containerize your AI app — essential for deployment.",url:"https://docs.docker.com/get-started/"},
+      {id:"r17-3",title:"How to write a great README",type:"article",desc:"Your README is the first thing recruiters see on your projects.",url:"https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes"},
     ]},
-  { week:12, phase:4, title:"Job Prep & Portfolio", desc:"Land your first AI engineering role",
-    topics:["Portfolio site with 3 projects","LinkedIn + GitHub optimisation","AI engineering interview prep","System design for AI systems"],
-    tools:["GitHub Pages / Vercel","LinkedIn","Excalidraw","Notion"],
-    project:"Ship portfolio site; complete 3 mock AI system design interviews",
+  { week:18, phase:3, title:"Build + Ship Project 2", desc:"Complete and deploy your agentic system",
+    topics:["End-to-end integration of all 3 layers","Error handling in production agents","Loom demo recording","Deploying agentic apps"],
+    tools:["Your full stack","Loom","Vercel / Railway"],
+    project:"Complete and deploy Project 2. Record a 5-min Loom walkthrough. Publish: 'my agentic AI system is live — here's the architecture.'",
+    outreach:"25 connections/day, 5 DMs/day. Both projects live = your credibility just jumped significantly.",
     resources:[
-      {id:"r12-1",title:"Grokking System Design — AI edition",type:"repo",desc:"System design patterns including ML pipelines and LLM serving architectures.",url:"https://github.com/donnemartin/system-design-primer"},
-      {id:"r12-2",title:"Neetcode.io — Blind 75",type:"course",desc:"The standard interview DSA prep list — complete all 75.",url:"https://neetcode.io/practice"},
-      {id:"r12-3",title:"GitHub Pages documentation",type:"docs",desc:"Host your portfolio for free on GitHub Pages.",url:"https://pages.github.com/"},
-      {id:"r12-4",title:"Levels.fyi — AI engineer salaries",type:"article",desc:"Research compensation ranges for AI engineer roles in India and abroad.",url:"https://www.levels.fyi/"},
-      {id:"r12-5",title:"How to write a great engineering resume",type:"article",desc:"Resume tips specific to software and AI engineering roles.",url:"https://www.techinterviewhandbook.org/resume/"},
+      {id:"r18-1",title:"Loom (free screen recording)",type:"docs",desc:"Record a demo video of your project for your portfolio.",url:"https://www.loom.com/"},
+      {id:"r18-2",title:"Helicone free tier",type:"docs",desc:"LLM observability — log requests, track costs, monitor latency.",url:"https://docs.helicone.ai/getting-started/quick-start"},
+    ]},
+  { week:19, phase:4, title:"Mock Interview Prep — RAG", desc:"Speak like a senior engineer in system design interviews",
+    topics:["RAG system design interview questions","How to structure architecture explanations","Trade-offs: RAG vs fine-tuning vs in-context","Evaluation and monitoring in production RAG"],
+    tools:["Excalidraw","Notion","Your own projects as examples"],
+    project:"Complete 3 mock RAG system design interviews (with a friend, or record yourself). Review and iterate.",
+    outreach:"Apply to 10 AI roles this week — India + US remote. Use your two live projects as proof.",
+    resources:[
+      {id:"r19-1",title:"Excalidraw",type:"docs",desc:"Free whiteboard for system design interviews — practice drawing architectures.",url:"https://excalidraw.com/"},
+      {id:"r19-2",title:"Neetcode.io",type:"course",desc:"DSA for coding interviews — do the top 75 list minimum.",url:"https://neetcode.io/"},
+    ]},
+  { week:20, phase:4, title:"Mock Interview Prep — Agents", desc:"System design for agentic systems",
+    topics:["Agent system design interview questions","Scaling agents to production","Reliability and fallback patterns","When NOT to use agents"],
+    tools:["Excalidraw","Your project architectures"],
+    project:"Complete 3 mock agent system design interviews. Record one, watch it back.",
+    outreach:"25 connections/day, 5 DMs/day. Active follow-up on all warm leads.",
+    resources:[
+      {id:"r20-1",title:"Grokking System Design primer",type:"repo",desc:"System design patterns including ML pipelines — study the patterns section.",url:"https://github.com/donnemartin/system-design-primer"},
+    ]},
+  { week:21, phase:4, title:"Portfolio Site", desc:"Your proof-of-work, publicly visible",
+    topics:["Portfolio site with 3 projects","GitHub profile optimization","LinkedIn + GitHub alignment","Writing project descriptions that land roles"],
+    tools:["GitHub Pages / Vercel","GitHub","Notion"],
+    project:"Ship portfolio site with both projects featured. Optimize GitHub profile. Everything points at the same story.",
+    outreach:"Attend 1 online AI meetup or webinar — connect with everyone there.",
+    resources:[
+      {id:"r21-1",title:"GitHub Pages documentation",type:"docs",desc:"Host your portfolio for free on GitHub Pages.",url:"https://pages.github.com/"},
+      {id:"r21-2",title:"How to write a great engineering resume",type:"article",desc:"Resume tips specific to AI engineering roles.",url:"https://www.techinterviewhandbook.org/resume/"},
+    ]},
+  { week:22, phase:4, title:"Content + Inbound", desc:"Your content starts working for you",
+    topics:["Review your best-performing posts","Double down on what worked","Thought leadership vs tutorial content","Turning engagement into conversations"],
+    tools:["LinkedIn","Your blog / GitHub"],
+    project:"Publish post: '6 months ago I was just a student. Here's what I built.' Retrospective content converts best.",
+    outreach:"25 connections/day, 5 DMs/day. Inbound interest should be picking up by now.",
+    resources:[
+      {id:"r22-1",title:"Levels.fyi — AI engineer salaries India",type:"article",desc:"Research compensation ranges for AI engineer roles in India and abroad.",url:"https://www.levels.fyi/"},
+    ]},
+  { week:23, phase:4, title:"Interview Pipeline", desc:"Convert conversations into offers",
+    topics:["How to navigate AI engineering interviews","Showing projects in technical interviews","Salary negotiation for freshers in AI","Following up effectively"],
+    tools:["Notion (pipeline tracking)","Loom"],
+    project:"Have 5+ real conversations with people at target companies. Apply to 10 more roles. Track everything in a spreadsheet.",
+    outreach:"25 connections/day. Send Template 1 to 10 new highly targeted people.",
+    resources:[
+      {id:"r23-1",title:"Tech Interview Handbook",type:"article",desc:"Complete guide to coding interviews, system design, and behavioral questions.",url:"https://www.techinterviewhandbook.org/"},
+    ]},
+  { week:24, phase:4, title:"Offer + Next Steps", desc:"The finish line — and the starting line",
+    topics:["Evaluating offers as a fresher","Negotiating your first AI role","What to optimize for in your first year","How to keep compounding"],
+    tools:["Notion","LinkedIn"],
+    project:"Post: 'I'm open to opportunities — here's what I've built.' Pin your two projects. Your GitHub and LinkedIn should tell a complete story.",
+    outreach:"25 connections/day. Follow up on every single warm conversation in your pipeline.",
+    resources:[
+      {id:"r24-1",title:"Product Hunt launch guide",type:"article",desc:"Consider launching one of your AI projects publicly for visibility.",url:"https://blog.producthunt.com/how-to-launch-on-product-hunt-7c1843e06399"},
     ]},
 ];
 
-let progress    = JSON.parse(localStorage.getItem('ai-roadmap-progress')   || '{}');
-let resProgress = JSON.parse(localStorage.getItem('ai-roadmap-resources')  || '{}');
+const posts = [
+  { num:1, type:"Origin story", title:"From web dev to AI engineer", hook:"i almost went full web dev.",
+    body:`i almost went full web dev.
+
+react, node, flask — i was decent at it. could build UIs, spin up backends, connect APIs. it felt like enough.
+
+then i built something that changed my mind: an AI newsletter bot that scrapes the web, processes sources, and delivers a full newsletter — without me touching it after setup.
+
+that's when i realized: i don't want to build the interface. i want to build the intelligence behind it.
+
+now i'm going deep on RAG systems and agentic AI. documenting everything here as i go.
+
+if you're building in this space, let's connect.
+
+#AIEngineering #RAG #AgenticAI` },
+  { num:2, type:"Student angle", title:"Being an AIML student in 2025", hook:"nobody talks about this:",
+    body:`nobody talks about this:
+
+being an AIML student in 2025 is both the best and worst time to enter the field.
+
+best: the tools are insane. what took a team 6 months in 2020 takes one person a weekend now.
+
+worst: everyone is an "AI engineer" now. the bar to look credible is basically zero. which means the bar to actually be credible has never been higher.
+
+my take: stop learning tools. start learning architectures. tools change every 3 months. the three-layer system (predict → decide → act) doesn't.
+
+that's what i'm focused on. what about you?
+
+#AIEngineering #StudentLife #GenAI` },
+  { num:3, type:"Contrarian opinion", title:"AI isn't taking your job. It's bigger.", hook:"unpopular opinion: AI is not going to take your job.",
+    body:`unpopular opinion: AI is not going to take your job.
+
+it's going to start an industrial revolution.
+
+we've been here before. the printing press didn't destroy writers — it created publishing. the industrial revolution didn't eliminate labor — it restructured it entirely and created 10x more jobs than it destroyed.
+
+AI is the same. the people panicking about job loss are looking at the wrong time horizon.
+
+the question isn't "will AI replace me?" it's "am i building the systems that run the new economy, or am i waiting to be replaced by someone who is?"
+
+i'm building. what are you doing?
+
+#AIRevolution #FutureOfWork #AgenticAI` },
+  { num:4, type:"Build in public", title:"What broke in my AI newsletter bot", hook:"i built an AI newsletter — here's what broke first.",
+    body:`i built an AI newsletter — here's what broke first.
+
+the idea: scrape relevant AI news, summarize it, format it, send it. no human in the loop.
+
+what i thought would be hard: the scraping.
+what was actually hard: getting the LLM to write summaries that don't sound like a robot wrote them.
+
+fix: i stopped prompting it to "summarize" and started prompting it to "explain this to a smart friend who missed the news this week." output quality jumped immediately.
+
+lesson: context engineering > prompt engineering. the words you choose to frame the task matter more than any trick.
+
+what's broken in your current AI project?
+
+#BuildInPublic #RAG #LLMEngineering` },
+  { num:5, type:"Technical explainer", title:"RAG explained simply", hook:"most people explain RAG wrong. here's the simple version.",
+    body:`most people explain RAG wrong. here's the simple version.
+
+RAG = Retrieval Augmented Generation.
+
+forget the jargon. here's what it actually does:
+
+instead of asking an LLM to remember everything (it can't), you give it a library + the ability to look things up before answering.
+
+you ask a question →
+system searches the library for relevant chunks →
+those chunks get added to the LLM's context →
+LLM answers using real information, not hallucinated memory
+
+that's it. that's RAG.
+
+the hard part isn't the retrieval. it's deciding what to retrieve and whether to trust it before the LLM acts on it.
+
+that second part is what separates basic RAG from production RAG.
+
+#RAG #LLMEngineering #AIEngineering` },
+  { num:6, type:"Opinion", title:"'Just use ChatGPT' is expensive advice", hook:'"just use ChatGPT" is the most expensive advice in tech right now.',
+    body:`"just use ChatGPT" is the most expensive advice in tech right now.
+
+here's why companies that outsource their AI thinking to a chatbot are going to get destroyed in the next 3 years:
+
+1. they're building on someone else's infrastructure with no control
+2. they have no institutional knowledge of how AI decisions get made
+3. when the model changes (and it always changes), they're starting from zero
+
+the companies that win are the ones building systems — not the ones prompting.
+
+predict. decide. act. that's the architecture. that's the moat.
+
+am i wrong?
+
+#AIStrategy #GenAI #EnterpriseAI` },
+  { num:7, type:"Technical explainer", title:"What most people call an AI agent is just a chatbot with tools", hook:"what most people call an 'AI agent' is just a chatbot with tools.",
+    body:`what most people call an "AI agent" is just a chatbot with tools.
+
+a real agent does something different: it checks its own work.
+
+here's the difference:
+
+fake agent: ask → LLM responds → done
+real agent: ask → LLM responds → system verifies the response → if wrong, try again → then act
+
+that verification step is everything. it's the difference between a system that works in demos and one that works in production.
+
+i'm building a version of this into my newsletter bot this week. documenting the whole thing here.
+
+#AgenticAI #LLMEngineering #BuildInPublic` },
+  { num:8, type:"Industry observation", title:"The AI job market has split into two tiers", hook:"something i've noticed nobody's talking about:",
+    body:`something i've noticed nobody's talking about:
+
+the AI job market has split into two tiers.
+
+tier 1: people who call APIs and chain prompts. salaries are dropping because supply is infinite.
+
+tier 2: people who design systems — the prediction layer, the decision layer, the action layer. salaries are rising because almost nobody actually understands this yet.
+
+the tools made tier 1 accessible to everyone. that's great for the world. but it's bad for your career if you stop there.
+
+i'm focused on tier 2. here's how i'm getting there: [add what you're learning this week]
+
+which tier are you building toward?
+
+#AIEngineering #CareerAdvice #GenAI` },
+  { num:9, type:"Vulnerability", title:"Zero experience. Here's what I have instead.", hook:"i have zero work experience. zero internships. zero 'real' projects by most definitions.",
+    body:`i have zero work experience. zero internships. zero "real" projects by most definitions.
+
+what i have: a working AI newsletter bot, a RAG system i built from scratch, a github repo, and a plan.
+
+i used to think experience was the barrier. now i think visibility is.
+
+nobody can hire you if they don't know you exist. so i'm here. posting what i'm building, what's breaking, and what i'm learning.
+
+if you're a student in the same boat — this is your sign to start posting. not when you're ready. now.
+
+#StudentLife #AIEngineering #BuildInPublic` },
+  { num:10, type:"Value-first", title:"The only framework you need if you're starting in AI", hook:"if you're starting in AI with no experience, here's the only framework you need:",
+    body:`if you're starting in AI with no experience, here's the only framework you need:
+
+don't learn tools. learn systems.
+
+tools: LangChain, LlamaIndex, OpenAI API, Pinecone — these change every 3 months.
+
+systems: how prediction works, how retrieval works, how verification works, how action gets triggered — these are the same in 10 years.
+
+step 1: understand why output quality is determined entirely by input context (context engineering).
+step 2: learn the three layers — predict, decide, act.
+step 3: build one project that uses all three. even a small one.
+step 4: ship it. write about it. repeat.
+
+that's the playbook. simple as that.
+
+save this for when you feel lost.
+
+#AIEngineering #LearningAI #CareerAdvice` },
+];
+
+const outreachTemplates = [
+  { label:"Template 1 — Callout + Value",
+    body:`hi [name], saw that [company] is building [their product in one line — be specific].
+
+i'm an AIML student who just built an end-to-end AI newsletter system — full scraping, summarization, and delivery pipeline with no human in the loop. also deep in RAG systems and agentic workflows right now.
+
+i'm looking to contribute to something real while i'm still in college. would a 15-min call make sense? totally fine if not.` },
+  { label:"Template 2 — The Insight",
+    body:`hi [name], been following what [company] is building with [specific product/feature].
+
+noticed that [specific observation — e.g., "your knowledge base search might benefit from a retrieval layer upgrade"]. been thinking about how this could be approached and have a rough idea worth sharing.
+
+happy to send a quick breakdown if useful. either way, cool stuff you're building.` },
+  { label:"Template 3 — Follow-up (day 6–7, no reply)",
+    body:`hey [name], circling back — no pressure at all. just didn't want it to get buried.
+
+if the timing's off, totally understand. rooting for [company] either way.` },
+];
+
+const papers = [
+  { week:"Wk 1", title:"Attention Is All You Need (2017)", why:"Every LLM and RAG system you'll build runs on transformers. This is the blueprint.", focus:"Abstract + introduction only. Understand what problem it solved, not the math.", id:"p1" },
+  { week:"Wk 2", title:"BERT: Pre-training of Deep Bidirectional Transformers (2018)", why:"Embedding models (core of every RAG system) descend from BERT. Choosing good embeddings requires knowing why.", focus:"Abstract + section 3 only. Skip fine-tuning experiments.", id:"p2" },
+  { week:"Wk 3", title:"RAG for Knowledge-Intensive NLP Tasks (Lewis et al. 2020)", why:"This IS the RAG paper. Read the limitations — every one is a startup.", focus:"Full paper. This one is worth the time.", id:"p3" },
+  { week:"Wk 4", title:"Dense Passage Retrieval (Karpukhin et al. 2020)", why:"Retrieval quality is the bottleneck in RAG. 'Better retrieval beats better generation.'", focus:"Abstract + approach + results.", id:"p4" },
+  { week:"Wk 5", title:"Chain-of-Thought Prompting (Wei et al. 2022)", why:"Understanding WHY chain-of-thought works tells you how to design better verification steps in agents.", focus:"Full paper — it's readable.", id:"p5" },
+  { week:"Wk 6", title:"ReAct: Synergizing Reasoning and Acting (Yao et al. 2022)", why:"The architecture behind every good agent. Reason, then act — not act, then reason.", focus:"Full paper. Read the limitations section very carefully.", id:"p6" },
+  { week:"Wk 7", title:"Toolformer (Schick et al. 2023)", why:"Your newsletter bot uses tools. This explains how LLMs decide when and how to use them.", focus:"Abstract + approach.", id:"p7" },
+  { week:"Wk 8", title:"Self-RAG: Learning to Retrieve, Generate, and Critique (2023)", why:"The model critiques its own retrievals before using them. This is the verification layer for your bot.", focus:"Full paper.", id:"p8" },
+  { week:"Wk 9", title:"HyDE: Hypothetical Document Embeddings (Gao et al. 2022)", why:"Advanced retrieval that dramatically improves RAG quality. Almost nobody at tutorial-level knows this.", focus:"Abstract + approach.", id:"p9" },
+  { week:"Wk 10", title:"LLM-as-a-Judge (Zheng et al. 2023)", why:"How do you evaluate whether your RAG system is actually working? This paper.", focus:"Full paper. Evaluation is the #1 problem in production AI.", id:"p10" },
+  { week:"Wk 11", title:"Cognitive Architectures for Language Agents (Sumers 2023)", why:"Most comprehensive agent system design survey. Learn the vocabulary — sound like a senior engineer immediately.", focus:"Sections 1–3 + figure 1. Use as a reference.", id:"p11" },
+  { week:"Wk 12", title:"RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval (2024)", why:"Current frontier of RAG. Implement this and you have a portfolio piece 99% of candidates don't.", focus:"Abstract + approach + limitations.", id:"p12" },
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let progress    = JSON.parse(LS.get('ai-roadmap-progress')  || '{}');
+let resProgress = JSON.parse(LS.get('ai-roadmap-resources') || '{}');
+let paperDone   = JSON.parse(LS.get('ai-roadmap-papers')    || '{}');
 let expandedWeek = null;
 let activeTypeFilter = 'all';
 let activeWeekFilter = 'all';
 
-// ── Local save ────────────────────────────────────────────────────────────────
 function save() {
-  localStorage.setItem('ai-roadmap-progress', JSON.stringify(progress));
-  localStorage.setItem('ai-roadmap-resources', JSON.stringify(resProgress));
-  scheduleCloudPush();
+  LS.set('ai-roadmap-progress',  JSON.stringify(progress));
+  LS.set('ai-roadmap-resources', JSON.stringify(resProgress));
+  LS.set('ai-roadmap-papers',    JSON.stringify(paperDone));
+  schedulePush();
 }
 
-// ── Supabase sync (plain fetch — no SDK needed) ───────────────────────────────
-let sbUserId = null;
-
-function sbUrl()     { return localStorage.getItem('sb-url')?.replace(/\/$/, ''); }
-function sbAnonKey() { return localStorage.getItem('sb-anonkey'); }
-
-function setSyncStatus(msg, cls = '') {
-  const el = document.getElementById('sync-status');
-  el.textContent = msg;
-  el.className = 'sync-status' + (cls ? ' ' + cls : '');
-}
-function openSyncModal()  { document.getElementById('sync-modal').classList.remove('hidden'); }
-function closeSyncModal() { document.getElementById('sync-modal').classList.add('hidden'); }
-function showConfigStep() {
-  document.getElementById('modal-step-config').style.display = '';
-  document.getElementById('modal-step-login').style.display  = 'none';
+// ── TABS ──────────────────────────────────────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
 }
 
-// Hash username+passphrase → deterministic row ID (no auth server needed)
-async function hashKey(username, passphrase) {
-  const raw = username.trim().toLowerCase() + ':' + passphrase;
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw));
-  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 40);
-}
-
-function saveSbConfig() {
-  const url = document.getElementById('sb-url').value.trim();
-  const key = document.getElementById('sb-anonkey').value.trim();
-  if (!url || !key) { showToast('Fill in both fields'); return; }
-  localStorage.setItem('sb-url',     url);
-  localStorage.setItem('sb-anonkey', key);
-  document.getElementById('modal-step-config').style.display = 'none';
-  document.getElementById('modal-step-login').style.display  = '';
-}
-
-async function sbSignIn() {
-  const username   = document.getElementById('sb-username').value.trim();
-  const passphrase = document.getElementById('sb-passphrase').value.trim();
-  if (!username || !passphrase) { showToast('Fill in username and passphrase'); return; }
-  if (!sbUrl() || !sbAnonKey()) { showToast('Config missing — go back'); return; }
-  setSyncStatus('☁ Connecting…');
-  try {
-    sbUserId = await hashKey(username, passphrase);
-    localStorage.setItem('sb-user-id',      sbUserId);
-    localStorage.setItem('sb-username-hint', username);
-    closeSyncModal();
-    document.getElementById('sb-username').value   = '';
-    document.getElementById('sb-passphrase').value = '';
-    updateSyncUI();
-    await sbPull();
-  } catch (err) {
-    setSyncStatus('☁ Error: ' + err.message, 'err');
-    showToast('Connection failed — check config');
-    console.error(err);
-  }
-}
-
-function sbSignOut() {
-  if (!confirm('Sign out? Your local progress stays intact.')) return;
-  localStorage.removeItem('sb-user-id');
-  localStorage.removeItem('sb-username-hint');
-  sbUserId = null;
-  updateSyncUI();
-  showToast('Signed out');
-}
-
-function updateSyncUI() {
-  const uid  = localStorage.getItem('sb-user-id');
-  const hint = localStorage.getItem('sb-username-hint') || 'connected';
-  const ok   = !!(uid && sbUrl() && sbAnonKey());
-  document.getElementById('setup-btn').style.display   = ok ? 'none' : '';
-  document.getElementById('signout-btn').style.display = ok ? '' : 'none';
-  if (!ok) setSyncStatus('☁ Cloud sync: not set up');
-  else     setSyncStatus('☁ Synced as ' + hint, 'ok');
-}
-
-function sbHeaders() {
-  return {
-    'Content-Type':  'application/json',
-    'apikey':        sbAnonKey(),
-    'Authorization': 'Bearer ' + sbAnonKey(),
-    'Prefer':        'resolution=merge-duplicates'
-  };
-}
-
-async function sbPull() {
-  setSyncStatus('☁ Loading from cloud…');
-  const res = await fetch(
-    `${sbUrl()}/rest/v1/progress?user_id=eq.${sbUserId}&select=data`,
-    { headers: { ...sbHeaders(), 'Prefer': '' } }
-  );
-  if (!res.ok) throw new Error('Fetch failed (' + res.status + ') — check URL/key');
-  const rows = await res.json();
-  if (rows.length && rows[0].data) {
-    applyProgressData(rows[0].data);
-    setSyncStatus('☁ Synced as ' + (localStorage.getItem('sb-username-hint') || 'you'), 'ok');
-    showToast('Progress loaded from cloud ✓');
-  } else {
-    await sbPush();   // first time — push local data up
-    setSyncStatus('☁ Synced as ' + (localStorage.getItem('sb-username-hint') || 'you'), 'ok');
-    showToast('New profile created — synced ✓');
-  }
-}
-
-async function sbPush() {
-  if (!sbUserId) return;
-  const payload = { progress_raw: progress, resources_raw: resProgress, synced: new Date().toISOString() };
-  const res = await fetch(`${sbUrl()}/rest/v1/progress`, {
-    method:  'POST',
-    headers: sbHeaders(),
-    body:    JSON.stringify({ user_id: sbUserId, data: payload })
-  });
-  if (!res.ok) {
-    const txt = await res.text();
-    throw new Error('Push failed (' + res.status + '): ' + txt);
-  }
-}
-
-let pushTimer = null;
-function scheduleCloudPush() {
-  if (!sbUserId) return;
-  clearTimeout(pushTimer);
-  pushTimer = setTimeout(async () => {
-    setSyncStatus('☁ Syncing…');
-    try {
-      await sbPush();
-      setSyncStatus('☁ Synced — ' + new Date().toLocaleTimeString(), 'ok');
-    } catch (err) {
-      setSyncStatus('☁ Sync error: ' + err.message, 'err');
-      console.error(err);
-    }
-  }, 1500);
-}
-
-function applyProgressData(data) {
-  const rawW = data.progress_raw  || data;
-  const rawR = data.resources_raw || {};
-  progress = {};
-  Object.keys(rawW).forEach(k => { progress[String(k)] = !!rawW[k]; });
-  resProgress = {};
-  Object.keys(rawR).forEach(k => { resProgress[String(k)] = !!rawR[k]; });
-  localStorage.setItem('ai-roadmap-progress', JSON.stringify(progress));
-  localStorage.setItem('ai-roadmap-resources', JSON.stringify(resProgress));
-  document.querySelectorAll('.wcard').forEach(card => {
-    const wn  = card.id.replace('wcard-', '');
-    const btn = document.getElementById('chk-' + wn);
-    if (progress[wn]) { card.classList.add('done');    btn?.classList.add('checked'); }
-    else              { card.classList.remove('done'); btn?.classList.remove('checked'); }
-  });
-  updateOverall(); renderAllResources();
-}
-
-// Re-connect automatically on every page load
-async function initCloudSync() {
-  updateSyncUI();
-  sbUserId = localStorage.getItem('sb-user-id');
-  if (!sbUserId || !sbUrl() || !sbAnonKey()) return;
-  try {
-    await sbPull();
-  } catch (err) {
-    setSyncStatus('☁ Reconnect error: ' + err.message, 'err');
-    console.error(err);
-  }
-}
-
+// ── OVERALL PROGRESS ──────────────────────────────────────────────────────────
 function updateOverall() {
   const done = Object.values(progress).filter(Boolean).length;
   document.getElementById('done-count').textContent = done;
-  document.getElementById('overall-bar').style.width = Math.round(done/12*100) + '%';
-  document.getElementById('pct-text').textContent = Math.round(done/12*100) + '% complete';
+  document.getElementById('overall-bar').style.width = Math.round(done/24*100) + '%';
+  document.getElementById('pct-text').textContent = Math.round(done/24*100) + '% complete';
   phases.forEach(p => {
     const el = document.getElementById('phase-prog-' + p.id);
     if (!el) return;
-    el.textContent = p.weeks.filter(w => progress[w]).length + ' / 3 done';
+    const total = p.weeks.length;
+    el.textContent = p.weeks.filter(w => progress[w]).length + ' / ' + total + ' done';
   });
 }
 
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2000);
+  setTimeout(() => t.classList.remove('show'), 2200);
 }
 
+// ── WEEK CARDS ────────────────────────────────────────────────────────────────
 function toggleDone(wn, e) {
   e.stopPropagation();
   progress[wn] = !progress[wn]; save(); updateOverall();
@@ -654,7 +1145,7 @@ function renderDetail(wn) {
   detail.id = 'detail-' + wn; detail.className = 'detail'; detail.style.gridColumn = '1 / -1';
   detail.innerHTML = `
     <div class="detail-head">
-      <span class="detail-ttl">Wk ${wn}: ${w.title}</span>
+      <span class="detail-ttl">Week ${wn}: ${w.title}</span>
       <button class="close-btn" onclick="collapseDetail()">close ✕</button>
     </div>
     <div class="detail-cols">
@@ -667,10 +1158,11 @@ function renderDetail(wn) {
         <div class="tags">${w.tools.map(t=>`<span class="tag tool">${t}</span>`).join('')}</div>
       </div>
     </div>
-    <div>
-      <div class="detail-block-label">Weekly project</div>
+    <div style="margin-bottom:14px">
+      <div class="detail-block-label">Weekly project / deliverable</div>
       <div class="tags"><span class="tag project">⬡ ${w.project}</span></div>
     </div>
+    ${w.outreach ? `<div class="detail-outreach"><div class="detail-block-label">Outreach task this week</div><div class="outreach-inline">${w.outreach}</div></div>` : ''}
     <div class="res-section">
       <div class="detail-block-label" style="margin-bottom:10px">Resources</div>
       <div class="res-list">${w.resources.map(r=>resItemHTML(r)).join('')}</div>
@@ -703,6 +1195,7 @@ function resItemHTML(r) {
   </div>`;
 }
 
+// ── BUILD ROADMAP ─────────────────────────────────────────────────────────────
 function buildRoadmap() {
   const container = document.getElementById('roadmap');
   phases.forEach(p => {
@@ -712,7 +1205,7 @@ function buildRoadmap() {
       <div class="phase-row">
         <span class="phase-num ${p.cls}">${p.label}</span>
         <span class="phase-title">${p.title}</span>
-        <span class="phase-count" id="phase-prog-${p.id}">0 / 3 done</span>
+        <span class="phase-count" id="phase-prog-${p.id}">0 / ${p.weeks.length} done</span>
       </div>
       <div class="weeks" id="grid-${p.id}"></div>`;
     container.appendChild(sec);
@@ -741,6 +1234,91 @@ function buildRoadmap() {
   });
 }
 
+// ── BUILD POSTS ───────────────────────────────────────────────────────────────
+function buildPosts() {
+  const grid = document.getElementById('posts-grid');
+  posts.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'post-card';
+    card.id = 'post-' + p.num;
+    card.onclick = () => togglePost(p.num);
+    card.innerHTML = `
+      <div class="post-num">Post #${p.num}</div>
+      <div class="post-type-tag">${p.type}</div>
+      <div class="post-title">${p.title}</div>
+      <div class="post-hook">${p.hook}</div>
+      <div class="post-expand">
+        <div class="post-body">${p.body}</div>
+        <button class="copy-btn" onclick="copyPost(event, ${p.num})">Copy to clipboard</button>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+function togglePost(num) {
+  const card = document.getElementById('post-' + num);
+  card.classList.toggle('open');
+}
+
+function copyPost(e, num) {
+  e.stopPropagation();
+  const p = posts.find(x => x.num === num);
+  navigator.clipboard.writeText(p.body).then(() => showToast('Post #' + num + ' copied ✓'));
+}
+
+// ── BUILD OUTREACH ────────────────────────────────────────────────────────────
+function buildOutreach() {
+  const grid = document.getElementById('outreach-grid');
+  outreachTemplates.forEach(t => {
+    const card = document.createElement('div');
+    card.className = 'tmpl-card';
+    card.innerHTML = `
+      <div class="tmpl-label">${t.label}</div>
+      <div class="tmpl-body">${t.body}</div>
+      <button class="copy-btn" onclick="copyTemplate(event, \`${t.body.replace(/`/g,"'")}\`)">Copy template</button>`;
+    grid.appendChild(card);
+  });
+}
+
+function copyTemplate(e, text) {
+  e.stopPropagation();
+  navigator.clipboard.writeText(text).then(() => showToast('Template copied ✓'));
+}
+
+// ── BUILD PAPERS ──────────────────────────────────────────────────────────────
+function buildPapers() {
+  const list = document.getElementById('papers-list');
+  papers.forEach(p => {
+    const done = !!paperDone[p.id];
+    const card = document.createElement('div');
+    card.className = 'paper-card' + (done ? ' done' : '');
+    card.id = 'paper-' + p.id;
+    card.innerHTML = `
+      <div class="paper-week">${p.week}</div>
+      <div class="paper-info">
+        <div class="paper-title">${p.title}</div>
+        <div class="paper-why">${p.why}</div>
+        <div class="paper-focus"><strong>Focus:</strong> ${p.focus}</div>
+      </div>
+      <button class="paper-chk${done?' checked':''}" id="pchk-${p.id}" onclick="togglePaper('${p.id}', event)" title="Mark read">
+        <svg class="paper-chkicon" width="10" height="10" viewBox="0 0 12 12" fill="none">
+          <path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>`;
+    list.appendChild(card);
+  });
+}
+
+function togglePaper(pid, e) {
+  e.stopPropagation();
+  paperDone[pid] = !paperDone[pid]; save();
+  const card = document.getElementById('paper-' + pid);
+  const chk  = document.getElementById('pchk-' + pid);
+  if (paperDone[pid]) { card.classList.add('done'); chk.classList.add('checked'); showToast('Paper marked read ✓'); }
+  else                { card.classList.remove('done'); chk.classList.remove('checked'); showToast('Paper unmarked'); }
+}
+
+// ── BUILD RESOURCES ───────────────────────────────────────────────────────────
 function buildWeekFilters() {
   const row = document.getElementById('week-filters');
   weeks.forEach(w => {
@@ -771,16 +1349,37 @@ function renderAllResources() {
       container.insertAdjacentHTML('beforeend', resItemHTML(r));
     });
   });
+  // Also include papers in resource tab
+  if (activeWeekFilter === 'all' && (activeTypeFilter === 'all' || activeTypeFilter === 'paper')) {
+    papers.forEach(p => {
+      const done = !!resProgress['paper-' + p.id];
+      container.insertAdjacentHTML('beforeend', `<div class="res-item${done?' res-done':''}" data-rid="paper-${p.id}">
+        <button class="res-chk${done?' checked':''}" onclick="toggleResDone('paper-${p.id}',event)" title="Mark done">
+          <svg class="res-chkicon" width="10" height="10" viewBox="0 0 12 12" fill="none">
+            <path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="res-item-left">
+          <div class="res-item-title">${p.title}</div>
+          <div class="res-item-desc">${p.why}</div>
+        </div>
+        <div class="res-item-right">
+          <span class="rtype">paper</span>
+        </div>
+      </div>`);
+    });
+  }
   if (!container.children.length)
     container.innerHTML = '<p style="font-size:13px;color:var(--ink3);padding:12px 0">No resources match this filter.</p>';
 }
 
+// ── IMPORT / EXPORT ───────────────────────────────────────────────────────────
 function exportProgress() {
-  const data = buildProgressPayload();
+  const data = buildPayload();
   const blob = new Blob([JSON.stringify(data, null, 2)], { type:'application/json' });
   const url  = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href = url; a.download = 'ai-roadmap-progress.json'; a.click();
-  URL.revokeObjectURL(url); showToast('Progress saved to JSON ✓');
+  URL.revokeObjectURL(url); showToast('Progress exported ✓');
 }
 
 function importProgress(e) {
@@ -789,17 +1388,295 @@ function importProgress(e) {
   reader.onload = function(ev) {
     try {
       const data = JSON.parse(ev.target.result);
-      const rawW = data.progress_raw  || data;
-      if (!Object.keys(rawW).every(k => !isNaN(Number(k)) && typeof rawW[k] === 'boolean')) throw 0;
-      applyProgressData(data);
-      showToast('Progress loaded ✓');
+      applyData(data);
+      save(); updateOverall(); renderAllResources();
+      showToast('Progress imported ✓');
     } catch { showToast('Invalid JSON file'); }
     e.target.value = '';
   };
   reader.readAsText(file);
 }
 
-buildRoadmap(); buildWeekFilters(); renderAllResources(); updateOverall(); initCloudSync();
+function buildPayload() {
+  return { progress, resProgress, paperDone, exportedAt: new Date().toISOString() };
+}
+
+function applyData(data) {
+  progress    = sanitizeBools(data.progress    || data);
+  resProgress = sanitizeBools(data.resProgress || {});
+  paperDone   = sanitizeBools(data.paperDone   || {});
+}
+
+function sanitizeBools(obj) {
+  const out = {};
+  Object.keys(obj).forEach(k => { out[String(k)] = !!obj[k]; });
+  return out;
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ── CLOUD SYNC — Supabase + localStorage hybrid ───────────────────────────────
+// ══════════════════════════════════════════════════════════════════════════════
+
+const LS = {
+  get:    k => { try { return localStorage.getItem(k); } catch { return null; } },
+  set:    (k,v) => { try { localStorage.setItem(k, v); } catch {} },
+  remove: k => { try { localStorage.removeItem(k); } catch {} },
+};
+
+// Supabase config (stored in localStorage — never leaves the browser except to user's own Supabase)
+function sbUrl()     { return (LS.get('sb-url')     || '').replace(/\/$/, ''); }
+function sbKey()     { return  LS.get('sb-anonkey') || ''; }
+function sbUserId()  { return  LS.get('sb-user-id') || ''; }
+function sbHint()    { return  LS.get('sb-hint')    || 'connected'; }
+function isSynced()  { return !!(sbUrl() && sbKey() && sbUserId()); }
+
+// Deterministic user ID: SHA-256(username:passphrase) — no auth server needed
+async function makeUserId(username, passphrase) {
+  const raw = username.trim().toLowerCase() + ':' + passphrase;
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('').slice(0, 48);
+}
+
+function sbHeaders() {
+  return {
+    'Content-Type':  'application/json',
+    'apikey':        sbKey(),
+    'Authorization': 'Bearer ' + sbKey(),
+    'Prefer':        'resolution=merge-duplicates',
+  };
+}
+
+async function sbFetch(path, opts = {}) {
+  const res = await fetch(sbUrl() + path, { ...opts, headers: { ...sbHeaders(), ...(opts.headers||{}) } });
+  if (!res.ok) {
+    const txt = await res.text().catch(() => res.status);
+    throw new Error(`Supabase ${res.status}: ${txt}`);
+  }
+  return res;
+}
+
+// Pull cloud data → return parsed row or null
+async function sbPull() {
+  const res = await sbFetch(`/rest/v1/progress?user_id=eq.${sbUserId()}&select=data,updated_at`, { headers:{ Prefer:'' } });
+  const rows = await res.json();
+  return rows.length ? rows[0] : null;
+}
+
+// Push local data to cloud
+async function sbPush() {
+  const payload = { user_id: sbUserId(), data: buildPayload(), updated_at: new Date().toISOString() };
+  await sbFetch('/rest/v1/progress', { method:'POST', body: JSON.stringify(payload) });
+}
+
+// ── Debounced auto-push ───────────────────────────────────────────────────────
+let pushTimer = null;
+function schedulePush() {
+  if (!isSynced()) return;
+  clearTimeout(pushTimer);
+  setSyncUI('syncing', 'Saving…', '');
+  pushTimer = setTimeout(async () => {
+    try {
+      await sbPush();
+      setSyncUI('ok', 'Synced to cloud', fmtTime(new Date()));
+    } catch(err) {
+      setSyncUI('err', 'Sync error — will retry', '');
+      console.error('sbPush', err);
+    }
+  }, 1800);
+}
+
+// ── UI helpers ────────────────────────────────────────────────────────────────
+function setSyncUI(state, text, lastText) {
+  const dot  = document.getElementById('sync-dot');
+  const txt  = document.getElementById('sync-status-text');
+  const last = document.getElementById('sync-last');
+  const btn  = document.getElementById('sync-main-btn');
+  dot.className  = 'sync-indicator' + (state ? ' ' + state : '');
+  txt.textContent  = text;
+  last.textContent = lastText;
+  if (state === 'ok') {
+    btn.textContent = '☁ ' + sbHint();
+    btn.title = 'Sync settings';
+  } else if (!isSynced()) {
+    btn.textContent = '☁ Set up sync';
+    btn.title = '';
+  }
+}
+
+function fmtTime(d) {
+  return d.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+}
+
+function fmtDateTime(s) {
+  if (!s) return '';
+  const d = new Date(s);
+  return d.toLocaleDateString() + ' ' + fmtTime(d);
+}
+
+// ── Modal control ─────────────────────────────────────────────────────────────
+let currentStep = 1;
+let pendingCloudData = null;
+
+function openSyncModal() {
+  document.getElementById('sync-modal').classList.remove('hidden');
+  if (isSynced()) { showStep(3); } else { showStep(1); }
+}
+function closeSyncModal() {
+  document.getElementById('sync-modal').classList.add('hidden');
+}
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('sync-modal')) closeSyncModal();
+}
+
+function showStep(n) {
+  currentStep = n;
+  [1,2,3].forEach(i => {
+    document.getElementById('modal-s' + i).style.display = i === n ? '' : 'none';
+    const dot = document.getElementById('step-dot-' + i);
+    dot.className = 'modal-step' + (i < n ? ' done' : i === n ? ' active' : '');
+  });
+  if (n === 3) populateConnectedInfo();
+}
+
+function populateConnectedInfo() {
+  document.getElementById('connected-info').innerHTML =
+    `Username: <strong>${sbHint()}</strong><br>` +
+    `Supabase URL: ${sbUrl().slice(0,40)}…<br>` +
+    `User ID: ${sbUserId().slice(0,16)}…<br>` +
+    `Status: syncing automatically on every change`;
+}
+
+function copySql() {
+  const sql = `CREATE TABLE IF NOT EXISTS progress (\n  user_id text PRIMARY KEY,\n  data    jsonb,\n  updated_at timestamptz DEFAULT now()\n);\nALTER TABLE progress DISABLE ROW LEVEL SECURITY;`;
+  navigator.clipboard.writeText(sql).then(() => showToast('SQL copied ✓'));
+}
+
+// ── Step 1: Save config ───────────────────────────────────────────────────────
+function saveConfig() {
+  const url = document.getElementById('sb-url').value.trim();
+  const key = document.getElementById('sb-anonkey').value.trim();
+  if (!url || !key) { showToast('Fill in both fields'); return; }
+  if (!url.startsWith('https://')) { showToast('URL must start with https://'); return; }
+  LS.set('sb-url', url);
+  LS.set('sb-anonkey', key);
+  showStep(2);
+}
+
+// ── Step 2: Connect ───────────────────────────────────────────────────────────
+async function connectSync() {
+  const username   = document.getElementById('sb-username').value.trim();
+  const passphrase = document.getElementById('sb-passphrase').value.trim();
+  if (!username || !passphrase) { showToast('Fill in username and passphrase'); return; }
+
+  const btn = document.getElementById('connect-btn');
+  btn.disabled = true; btn.textContent = 'Connecting…';
+  setSyncUI('syncing', 'Connecting…', '');
+
+  try {
+    const uid = await makeUserId(username, passphrase);
+    LS.set('sb-user-id', uid);
+    LS.set('sb-hint', username);
+
+    const row = await sbPull();
+
+    if (row && row.data) {
+      // Cloud data exists — check for conflict
+      const cloudWeeksCount = Object.values(row.data.progress || {}).filter(Boolean).length;
+      const localWeeksCount = Object.values(progress).filter(Boolean).length;
+
+      if (cloudWeeksCount > 0 && localWeeksCount > 0 && cloudWeeksCount !== localWeeksCount) {
+        // Conflict — ask user
+        pendingCloudData = row.data;
+        document.getElementById('conflict-desc').textContent =
+          `Cloud has ${cloudWeeksCount} weeks done (saved ${fmtDateTime(row.updated_at)}). ` +
+          `Local has ${localWeeksCount} weeks done. Which should win?`;
+        document.getElementById('conflict-box').classList.remove('hidden');
+        btn.disabled = false; btn.textContent = 'Connect & sync';
+        setSyncUI('', 'Conflict — choose below', '');
+        return;
+      } else {
+        // No conflict: cloud wins (more weeks done, or local is fresh)
+        applyData(row.data); save(); updateOverall(); renderAllResources();
+        showToast('Progress loaded from cloud ✓');
+      }
+    } else {
+      // First time for this identity — push local up
+      await sbPush();
+      showToast('Profile created — synced ✓');
+    }
+
+    onConnected();
+  } catch(err) {
+    setSyncUI('err', 'Connection failed', '');
+    showToast('Error: ' + err.message);
+    console.error('connectSync', err);
+  }
+  btn.disabled = false; btn.textContent = 'Connect & sync';
+}
+
+function resolveConflict(winner) {
+  document.getElementById('conflict-box').classList.add('hidden');
+  if (winner === 'cloud' && pendingCloudData) {
+    applyData(pendingCloudData); save(); updateOverall(); renderAllResources();
+    showToast('Cloud data applied ✓');
+  } else {
+    // Push local to cloud
+    sbPush().then(() => showToast('Local data pushed to cloud ✓')).catch(console.error);
+  }
+  pendingCloudData = null;
+  onConnected();
+}
+
+function onConnected() {
+  setSyncUI('ok', 'Synced to cloud', fmtTime(new Date()));
+  showStep(3);
+}
+
+// ── Sign out ──────────────────────────────────────────────────────────────────
+function signOut() {
+  if (!confirm('Sign out? Your local progress stays intact.')) return;
+  LS.remove('sb-user-id');
+  LS.remove('sb-hint');
+  closeSyncModal();
+  setSyncUI('', 'Local only', '');
+  showToast('Signed out');
+}
+
+// ── Auto-reconnect on page load ───────────────────────────────────────────────
+async function initSync() {
+  if (!isSynced()) { setSyncUI('', 'Local only', ''); return; }
+  setSyncUI('syncing', 'Reconnecting…', '');
+  try {
+    const row = await sbPull();
+    if (row && row.data) {
+      // Merge: cloud wins for keys it has, local wins for keys it has but cloud doesn't
+      const merged = { ...buildPayload(), ...row.data };
+      // Simple merge: whichever has MORE weeks done wins
+      const cloudDone = Object.values(row.data.progress || {}).filter(Boolean).length;
+      const localDone = Object.values(progress).filter(Boolean).length;
+      if (cloudDone >= localDone) {
+        applyData(row.data); save(); updateOverall(); renderAllResources();
+      } else {
+        // Local is ahead — push to cloud silently
+        await sbPush();
+      }
+    }
+    setSyncUI('ok', 'Synced — ' + sbHint(), fmtTime(new Date()));
+  } catch(err) {
+    setSyncUI('err', 'Offline — changes saved locally', '');
+    console.warn('initSync', err);
+  }
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+buildRoadmap();
+buildPosts();
+buildOutreach();
+buildPapers();
+buildWeekFilters();
+renderAllResources();
+updateOverall();
+initSync();
 </script>
 </body>
 </html>
