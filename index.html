@@ -565,8 +565,7 @@
       </div>
       <div class="sql-block">CREATE TABLE IF NOT EXISTS progress (
   user_id text PRIMARY KEY,
-  data    jsonb,
-  updated_at timestamptz DEFAULT now()
+  data    jsonb
 );
 ALTER TABLE progress DISABLE ROW LEVEL SECURITY;</div>
       <button class="copy-sql-btn" onclick="copySql()">Copy SQL</button>
@@ -1458,14 +1457,14 @@ async function sbFetch(path, opts = {}) {
 
 // Pull cloud data → return parsed row or null
 async function sbPull() {
-  const res = await sbFetch(`/rest/v1/progress?user_id=eq.${sbUserId()}&select=data,updated_at`, { headers:{ Prefer:'' } });
+  const res = await sbFetch(`/rest/v1/progress?user_id=eq.${sbUserId()}&select=data`, { headers:{ Prefer:'' } });
   const rows = await res.json();
   return rows.length ? rows[0] : null;
 }
 
 // Push local data to cloud
 async function sbPush() {
-  const payload = { user_id: sbUserId(), data: buildPayload(), updated_at: new Date().toISOString() };
+  const payload = { user_id: sbUserId(), data: buildPayload() };
   await sbFetch('/rest/v1/progress', { method:'POST', body: JSON.stringify(payload) });
 }
 
@@ -1589,7 +1588,7 @@ async function connectSync() {
         // Conflict — ask user
         pendingCloudData = row.data;
         document.getElementById('conflict-desc').textContent =
-          `Cloud has ${cloudWeeksCount} weeks done (saved ${fmtDateTime(row.updated_at)}). ` +
+          `Cloud has ${cloudWeeksCount} weeks done. ` +
           `Local has ${localWeeksCount} weeks done. Which should win?`;
         document.getElementById('conflict-box').classList.remove('hidden');
         btn.disabled = false; btn.textContent = 'Connect & sync';
